@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     var recentGroupsCollectionView: UICollectionView!
     var reuse: String = "GroupReuse"
     var initialRecentGroups: [Group]!
+    var recommendedLabel: UILabel!
     
 
     override func viewDidLoad() {
@@ -46,6 +47,13 @@ class ViewController: UIViewController {
         recentLabel.textColor = mainColor
         recentLabel.text = "Recent"
         view.addSubview(recentLabel)
+        
+        recommendedLabel = UILabel()
+        recommendedLabel.translatesAutoresizingMaskIntoConstraints = false
+        recommendedLabel.font = UIFont.systemFont(ofSize: 40, weight: .bold)
+        recommendedLabel.textColor = mainColor
+        recommendedLabel.text = "Recommended"
+        view.addSubview(recommendedLabel)
         
         let recentGroupsLayout = UICollectionViewFlowLayout()
         recentGroupsLayout.scrollDirection = .horizontal
@@ -90,7 +98,7 @@ class ViewController: UIViewController {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            browseButton.topAnchor.constraint(equalTo: recentGroupsCollectionView.bottomAnchor, constant: 25),
+            browseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             browseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             browseButton.widthAnchor.constraint(equalToConstant: 200),
             browseButton.heightAnchor.constraint(equalToConstant: 50)
@@ -108,6 +116,13 @@ class ViewController: UIViewController {
             recentGroupsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             recentGroupsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             recentGroupsCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor)
+            ])
+        
+        NSLayoutConstraint.activate([
+            recommendedLabel.topAnchor.constraint(equalTo: recentGroupsCollectionView.bottomAnchor, constant: 25),
+            recommendedLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            recommendedLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recommendedLabel.heightAnchor.constraint(equalToConstant: 50)
             ])
     }
     
