@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     var reuse: String = "GroupReuse"
     var initialRecentGroups: [Group]!
     var recommendedLabel: UILabel!
+    var tabController: UITabBarController!
+    let browseViewController = BrowseViewController()
     
 
     override func viewDidLoad() {
@@ -30,16 +32,16 @@ class ViewController: UIViewController {
             [NSAttributedString.Key.foregroundColor: UIColor.white,
              NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         
-        browseButton = UIButton()
-        browseButton.translatesAutoresizingMaskIntoConstraints = false
-        browseButton.setTitle("Browse", for: .normal)
-        browseButton.setTitleColor(.white, for: .normal)
-        browseButton.backgroundColor = mainColor
-        browseButton.contentVerticalAlignment = .center
-        browseButton.layer.cornerRadius = 25
-        browseButton.clipsToBounds = true
-        browseButton.addTarget(self, action: #selector(presentBrowseViewController), for: .touchUpInside)
-        view.addSubview(browseButton)
+//        browseButton = UIButton()
+//        browseButton.translatesAutoresizingMaskIntoConstraints = false
+//        browseButton.setTitle("Browse", for: .normal)
+//        browseButton.setTitleColor(.white, for: .normal)
+//        browseButton.backgroundColor = mainColor
+//        browseButton.contentVerticalAlignment = .center
+//        browseButton.layer.cornerRadius = 25
+//        browseButton.clipsToBounds = true
+//        browseButton.addTarget(self, action: #selector(presentBrowseViewController), for: .touchUpInside)
+        //view.addSubview(browseButton)
         
         recentLabel = UILabel()
         recentLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +68,16 @@ class ViewController: UIViewController {
         recentGroupsCollectionView.dataSource = self
         recentGroupsCollectionView.delegate = self
         recentGroupsCollectionView.register(RecentGroupCollectionViewCell.self, forCellWithReuseIdentifier: reuse)
+        recentGroupsCollectionView.showsHorizontalScrollIndicator = false
         view.addSubview(recentGroupsCollectionView)
+        
+//        tabController = UITabBarController()
+//        //tabController.delegate = self
+//        tabController.tabBar.barStyle = .default
+//        let classViewController = ClassViewController()
+//        tabController.viewControllers = [classViewController, browseViewController]
+//        view.addSubview(tabController.view)
+        
         
         
         let cs3410 = Class(subject: "CS", number: 3410, name: "Computer System Organization and Programming")
@@ -97,12 +108,12 @@ class ViewController: UIViewController {
     
     
     func setupConstraints() {
-        NSLayoutConstraint.activate([
-            browseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            browseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            browseButton.widthAnchor.constraint(equalToConstant: 200),
-            browseButton.heightAnchor.constraint(equalToConstant: 50)
-            ])
+//        NSLayoutConstraint.activate([
+//            browseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+//            browseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            browseButton.widthAnchor.constraint(equalToConstant: 200),
+//            browseButton.heightAnchor.constraint(equalToConstant: 50)
+//            ])
         
         NSLayoutConstraint.activate([
             recentLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -127,7 +138,6 @@ class ViewController: UIViewController {
     }
     
     @objc func presentBrowseViewController() {
-        let browseViewController = BrowseViewController()
         navigationController?.pushViewController(browseViewController, animated: true)
     }
 

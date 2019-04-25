@@ -23,8 +23,13 @@ class BrowseViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Browse"
-        
+        let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
         view.backgroundColor = .white
+        self.navigationController!.navigationBar.barTintColor = mainColor
+        self.navigationController!.navigationBar.titleTextAttributes =
+            [NSAttributedString.Key.foregroundColor: UIColor.white,
+             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
+        
         
         originalCourses = [
             Class(subject: "CS", number: 1998, name: "Intro to iOS Development"),
@@ -54,8 +59,7 @@ class BrowseViewController: UIViewController {
     
         
         setupConstraints()
-        
-        // Do any additional setup after loading the view.
+        //getCourses()
     }
     
     func setupConstraints() {
@@ -74,16 +78,22 @@ class BrowseViewController: UIViewController {
         
     }
     
+    func getCourses() {
+        NetworkManager.getClasses()
+    }
+    
 }
 
 extension BrowseViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return displayedCourses.count
+        //return originalCourses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ClassTableViewCell
         let course = displayedCourses[indexPath.row]
+        //let course = originalCourses[indexPath.row]
         cell.configure(for: course)
         return cell
     }

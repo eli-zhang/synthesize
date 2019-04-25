@@ -19,7 +19,7 @@ class Class {
         self.subject = subject
         self.number = number
         self.name = name
-        self.subjectnumber = "\(subject)\(number)"
+        self.subjectnumber = "\(subject) \(number)"
         if (subject=="CS" || subject=="ECE" || subject=="INFO") {
             self.imageName = "cs"
         }
