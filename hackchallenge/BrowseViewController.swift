@@ -31,15 +31,26 @@ class BrowseViewController: UIViewController {
              NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         
         
-        originalCourses = [
-            Class(subject: "CS", number: 1998, name: "Intro to iOS Development"),
-            Class(subject: "MATH", number: 2210, name: "Linear Algebra"),
-            Class(subject: "PE", number: 1300, name: "Bowling")]
+//        originalCourses = [
+//            Class(subject: "CS", number: 1998, name: "Intro to iOS Development"),
+//            Class(subject: "MATH", number: 2210, name: "Linear Algebra"),
+//            Class(subject: "PE", number: 1300, name: "Bowling")]
         
-        displayedCourses = [
-            Class(subject: "CS", number: 1998, name: "Intro to iOS Development"),
-            Class(subject: "MATH", number: 2210, name: "Linear Algebra"),
-            Class(subject: "PE", number: 1300, name: "Bowling")]
+        let cs3410 = Class(subject: "CS", number: 3410, name: "Computer System Organization and Programming")
+        let cs2300 = Class(subject: "CS", number: 2300, name: "Intermediate Web Design and Programming")
+        let orie3120 = Class(subject: "ORIE", number: 3120, name: "Practical Tools for OR and Machine Learning")
+        let math2930 = Class(subject: "MATH", number: 2930, name: "Differential Equations")
+        let music1312 = Class(subject: "MUSIC", number: 1312, name: "History of Rock Music")
+        let hadm1111 = Class(subject: "HADM", number: 1111, name: "Hotel Class")
+        let ilr2100 = Class(subject: "ILR", number: 2100, name: "Labor Relations")
+        let bio1000 = Class(subject: "BIO", number: 1111, name: "Bio 1")
+        
+//        displayedCourses = [
+//            Class(subject: "CS", number: 1998, name: "Intro to iOS Development"),
+//            Class(subject: "MATH", number: 2210, name: "Linear Algebra"),
+//            Class(subject: "PE", number: 1300, name: "Bowling")]
+        displayedCourses = [cs3410, cs2300, orie3120, math2930, music1312, hadm1111, ilr2100, bio1000]
+        originalCourses = displayedCourses
         
         searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false

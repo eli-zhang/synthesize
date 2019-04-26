@@ -159,7 +159,10 @@ extension ViewController: UICollectionViewDataSource {
 
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let cell = initialRecentGroups[indexPath.item]
+        let groupViewController = GroupViewController()
+        groupViewController.title = cell.relatedClass.getTitle() + " - " + cell.name
+        navigationController?.pushViewController(groupViewController, animated: true)
     }
 }
 
