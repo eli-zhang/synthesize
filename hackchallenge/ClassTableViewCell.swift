@@ -46,22 +46,22 @@ class ClassTableViewCell: UITableViewCell {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             cellLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 140),
-            cellLabel.rightAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 50),
+            cellLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             cellLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            cellLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            cellLabel.bottomAnchor.constraint(equalTo: contentView.centerYAnchor)
             ])
         
         NSLayoutConstraint.activate([
             cellImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            cellImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            cellImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            cellImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            cellImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             cellImageView.widthAnchor.constraint(equalToConstant: 100)
             ])
         
         NSLayoutConstraint.activate([
-            courseNameLabel.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 50),
+            courseNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 140),
             courseNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            courseNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            courseNameLabel.topAnchor.constraint(equalTo: contentView.centerYAnchor),
             courseNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
             ])
     }
