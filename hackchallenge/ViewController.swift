@@ -116,22 +116,22 @@ class ViewController: UIViewController {
 //            ])
         
         NSLayoutConstraint.activate([
-            recentLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            recentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            recentLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            recentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             recentLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             recentLabel.heightAnchor.constraint(equalToConstant: 50)
             ])
         
         NSLayoutConstraint.activate([
-            recentGroupsCollectionView.topAnchor.constraint(equalTo: recentLabel.bottomAnchor, constant: 25),
-            recentGroupsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            recentGroupsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            recentGroupsCollectionView.topAnchor.constraint(equalTo: recentLabel.bottomAnchor, constant: 20),
+            recentGroupsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            recentGroupsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             recentGroupsCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor)
             ])
         
         NSLayoutConstraint.activate([
             recommendedLabel.topAnchor.constraint(equalTo: recentGroupsCollectionView.bottomAnchor, constant: 25),
-            recommendedLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            recommendedLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             recommendedLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             recommendedLabel.heightAnchor.constraint(equalToConstant: 50)
             ])
@@ -151,6 +151,8 @@ extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuse, for: indexPath) as! RecentGroupCollectionViewCell
+        cell.layer.cornerRadius = 10
+        cell.clipsToBounds = true
         let group = initialRecentGroups[indexPath.item]
         cell.configure(for: group)
         return cell
@@ -168,7 +170,7 @@ extension ViewController: UICollectionViewDelegate {
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let length = (collectionView.frame.height - 30) / 2
-        return CGSize(width: length, height: length)
+        let length = (collectionView.frame.width / 2 - 5)
+        return CGSize(width: length, height: length / 2)
     }
 }
