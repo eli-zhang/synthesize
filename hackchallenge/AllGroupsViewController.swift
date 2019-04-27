@@ -15,7 +15,7 @@ class AllGroupsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Groups"
+        title = "My Groups"
         let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
         view.backgroundColor = .white
         self.navigationController!.navigationBar.barTintColor = mainColor
