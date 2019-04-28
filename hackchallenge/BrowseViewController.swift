@@ -134,7 +134,7 @@ extension BrowseViewController: UISearchBarDelegate{
 extension BrowseViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = displayedCourses[indexPath.row]
-        let classViewController = ClassViewController()
+        let classViewController = ClassViewController(relatedClass: cell)
         classViewController.title = "Groups - " + cell.getTitle()
         navigationController?.pushViewController(classViewController, animated: true)
     }
