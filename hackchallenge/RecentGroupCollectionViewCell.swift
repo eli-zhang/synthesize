@@ -75,6 +75,14 @@ class RecentGroupCollectionViewCell: UICollectionViewCell {
         groupNameLabel.text = group.name
     }
     
+    func configure(for course: Class) {
+        if let image = course.imageName {
+            classImageView.image = UIImage(named: image)
+        }
+        classNameLabel.text = course.getTitle()
+        groupNameLabel.text = nil
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

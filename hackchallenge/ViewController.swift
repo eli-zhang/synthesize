@@ -13,9 +13,12 @@ class ViewController: UIViewController {
     var browseButton: UIButton!
     var recentLabel: UILabel!
     var recentGroupsCollectionView: UICollectionView!
+    var recentClassesCollectionView: UICollectionView!
     var reuse: String = "GroupReuse"
+    var reuseClass: String = "ClassReuse"
     var initialRecentGroups: [Group]!
-    var recommendedLabel: UILabel!
+    var recentClassesLabel: UILabel!
+    var initialRecentClasses: [Class]!
     var tabController: UITabBarController!
     let browseViewController = BrowseViewController()
     
@@ -32,30 +35,19 @@ class ViewController: UIViewController {
             [NSAttributedString.Key.foregroundColor: UIColor.white,
              NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         
-        //        browseButton = UIButton()
-        //        browseButton.translatesAutoresizingMaskIntoConstraints = false
-        //        browseButton.setTitle("Browse", for: .normal)
-        //        browseButton.setTitleColor(.white, for: .normal)
-        //        browseButton.backgroundColor = mainColor
-        //        browseButton.contentVerticalAlignment = .center
-        //        browseButton.layer.cornerRadius = 25
-        //        browseButton.clipsToBounds = true
-        //        browseButton.addTarget(self, action: #selector(presentBrowseViewController), for: .touchUpInside)
-        //view.addSubview(browseButton)
-        
         recentLabel = UILabel()
         recentLabel.translatesAutoresizingMaskIntoConstraints = false
         recentLabel.font = UIFont.systemFont(ofSize: 40, weight: .bold)
         recentLabel.textColor = mainColor
-        recentLabel.text = "Recent"
+        recentLabel.text = "Recent Groups"
         view.addSubview(recentLabel)
         
-        recommendedLabel = UILabel()
-        recommendedLabel.translatesAutoresizingMaskIntoConstraints = false
-        recommendedLabel.font = UIFont.systemFont(ofSize: 40, weight: .bold)
-        recommendedLabel.textColor = mainColor
-        recommendedLabel.text = "Recommended"
-        view.addSubview(recommendedLabel)
+        recentClassesLabel = UILabel()
+        recentClassesLabel.translatesAutoresizingMaskIntoConstraints = false
+        recentClassesLabel.font = UIFont.systemFont(ofSize: 40, weight: .bold)
+        recentClassesLabel.textColor = mainColor
+        recentClassesLabel.text = "Recent Classes"
+        view.addSubview(recentClassesLabel)
         
         let recentGroupsLayout = UICollectionViewFlowLayout()
         recentGroupsLayout.scrollDirection = .horizontal
@@ -71,12 +63,19 @@ class ViewController: UIViewController {
         recentGroupsCollectionView.showsHorizontalScrollIndicator = false
         view.addSubview(recentGroupsCollectionView)
         
-        //        tabController = UITabBarController()
-        //        //tabController.delegate = self
-        //        tabController.tabBar.barStyle = .default
-        //        let classViewController = ClassViewController()
-        //        tabController.viewControllers = [classViewController, browseViewController]
-        //        view.addSubview(tabController.view)
+        let recentClassesLayout = UICollectionViewFlowLayout()
+        recentClassesLayout.scrollDirection = .horizontal
+        recentClassesLayout.minimumLineSpacing = 10
+        recentClassesLayout.minimumInteritemSpacing = 10
+        
+        recentClassesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: recentClassesLayout)
+        recentClassesCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        recentClassesCollectionView.backgroundColor = .white
+        recentClassesCollectionView.dataSource = self
+        recentClassesCollectionView.delegate = self
+        recentClassesCollectionView.register(RecentGroupCollectionViewCell.self, forCellWithReuseIdentifier: reuseClass)
+        recentClassesCollectionView.showsHorizontalScrollIndicator = false
+        view.addSubview(recentClassesCollectionView)
         
         
         
@@ -102,19 +101,13 @@ class ViewController: UIViewController {
         let group12 = Group(relatedClass: bio1000, name: "Prelim1")
         
         initialRecentGroups = [group1, group2, group3, group4, group5, group6, group7, group8, group9, group10, group11, group12]
+        initialRecentClasses = [cs2300, cs3410, orie3120, math2930, ilr2100]
         
         setupConstraints()
     }
     
     
     func setupConstraints() {
-        //        NSLayoutConstraint.activate([
-        //            browseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-        //            browseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        //            browseButton.widthAnchor.constraint(equalToConstant: 200),
-        //            browseButton.heightAnchor.constraint(equalToConstant: 50)
-        //            ])
-        
         NSLayoutConstraint.activate([
             recentLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             recentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
@@ -127,14 +120,21 @@ class ViewController: UIViewController {
             recentGroupsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             recentGroupsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             //            recentGroupsCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor)
-            recentGroupsCollectionView.heightAnchor.constraint(equalToConstant: 250)
+            recentGroupsCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: 50)
             ])
         
         NSLayoutConstraint.activate([
-            recommendedLabel.topAnchor.constraint(equalTo: recentGroupsCollectionView.bottomAnchor, constant: 25),
-            recommendedLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            recommendedLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            recommendedLabel.heightAnchor.constraint(equalToConstant: 50)
+            recentClassesLabel.topAnchor.constraint(equalTo: recentGroupsCollectionView.bottomAnchor, constant: 25),
+            recentClassesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            recentClassesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recentClassesLabel.heightAnchor.constraint(equalToConstant: 50)
+            ])
+        
+        NSLayoutConstraint.activate([
+            recentClassesCollectionView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
+            recentClassesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            recentClassesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            recentClassesCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             ])
     }
     
@@ -147,29 +147,53 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return initialRecentGroups.count
+        if collectionView == self.recentGroupsCollectionView {
+            return initialRecentGroups.count
+        }
+        else {
+            return initialRecentClasses.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuse, for: indexPath) as! RecentGroupCollectionViewCell
-        let group = initialRecentGroups[indexPath.item]
-        cell.configure(for: group)
-        return cell
+        if collectionView == self.recentGroupsCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuse, for: indexPath) as! RecentGroupCollectionViewCell
+            let group = initialRecentGroups[indexPath.item]
+            cell.configure(for: group)
+            return cell
+        }
+        else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseClass, for: indexPath) as! RecentGroupCollectionViewCell
+            let course = initialRecentClasses[indexPath.item]
+            cell.configure(for: course)
+            return cell
+        }
     }
 }
 
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = initialRecentGroups[indexPath.item]
-        let groupViewController = GroupViewController()
-        groupViewController.title = cell.relatedClass.getTitle() + " - " + cell.name
-        navigationController?.pushViewController(groupViewController, animated: true)
+        if collectionView == self.recentGroupsCollectionView {
+            let cell = initialRecentGroups[indexPath.item]
+            let groupViewController = GroupViewController()
+            groupViewController.title = cell.relatedClass.getTitle() + " - " + cell.name
+            navigationController?.pushViewController(groupViewController, animated: true)
+        }
+        else {
+            let cell = initialRecentClasses[indexPath.item]
+            let classViewController = ClassViewController(relatedClass: cell)
+            classViewController.title = "Groups - " + cell.getTitle()
+            navigationController?.pushViewController(classViewController, animated: true)
+        }
     }
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let length = (collectionView.frame.height - 30) / 2
+        var length = collectionView.frame.height - 60
+        if collectionView == self.recentGroupsCollectionView {
+            length = length / 2
+        }
         return CGSize(width: length, height: length)
     }
 }
