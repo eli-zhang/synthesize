@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     var tabController: UITabBarController!
     let browseViewController = BrowseViewController()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -32,15 +32,15 @@ class ViewController: UIViewController {
             [NSAttributedString.Key.foregroundColor: UIColor.white,
              NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         
-//        browseButton = UIButton()
-//        browseButton.translatesAutoresizingMaskIntoConstraints = false
-//        browseButton.setTitle("Browse", for: .normal)
-//        browseButton.setTitleColor(.white, for: .normal)
-//        browseButton.backgroundColor = mainColor
-//        browseButton.contentVerticalAlignment = .center
-//        browseButton.layer.cornerRadius = 25
-//        browseButton.clipsToBounds = true
-//        browseButton.addTarget(self, action: #selector(presentBrowseViewController), for: .touchUpInside)
+        //        browseButton = UIButton()
+        //        browseButton.translatesAutoresizingMaskIntoConstraints = false
+        //        browseButton.setTitle("Browse", for: .normal)
+        //        browseButton.setTitleColor(.white, for: .normal)
+        //        browseButton.backgroundColor = mainColor
+        //        browseButton.contentVerticalAlignment = .center
+        //        browseButton.layer.cornerRadius = 25
+        //        browseButton.clipsToBounds = true
+        //        browseButton.addTarget(self, action: #selector(presentBrowseViewController), for: .touchUpInside)
         //view.addSubview(browseButton)
         
         recentLabel = UILabel()
@@ -71,12 +71,12 @@ class ViewController: UIViewController {
         recentGroupsCollectionView.showsHorizontalScrollIndicator = false
         view.addSubview(recentGroupsCollectionView)
         
-//        tabController = UITabBarController()
-//        //tabController.delegate = self
-//        tabController.tabBar.barStyle = .default
-//        let classViewController = ClassViewController()
-//        tabController.viewControllers = [classViewController, browseViewController]
-//        view.addSubview(tabController.view)
+        //        tabController = UITabBarController()
+        //        //tabController.delegate = self
+        //        tabController.tabBar.barStyle = .default
+        //        let classViewController = ClassViewController()
+        //        tabController.viewControllers = [classViewController, browseViewController]
+        //        view.addSubview(tabController.view)
         
         
         
@@ -108,30 +108,31 @@ class ViewController: UIViewController {
     
     
     func setupConstraints() {
-//        NSLayoutConstraint.activate([
-//            browseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-//            browseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            browseButton.widthAnchor.constraint(equalToConstant: 200),
-//            browseButton.heightAnchor.constraint(equalToConstant: 50)
-//            ])
+        //        NSLayoutConstraint.activate([
+        //            browseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+        //            browseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        //            browseButton.widthAnchor.constraint(equalToConstant: 200),
+        //            browseButton.heightAnchor.constraint(equalToConstant: 50)
+        //            ])
         
         NSLayoutConstraint.activate([
-            recentLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            recentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            recentLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            recentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             recentLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             recentLabel.heightAnchor.constraint(equalToConstant: 50)
             ])
         
         NSLayoutConstraint.activate([
-            recentGroupsCollectionView.topAnchor.constraint(equalTo: recentLabel.bottomAnchor, constant: 20),
-            recentGroupsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            recentGroupsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            recentGroupsCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor)
+            recentGroupsCollectionView.topAnchor.constraint(equalTo: recentLabel.bottomAnchor, constant: 25),
+            recentGroupsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            recentGroupsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            //            recentGroupsCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor)
+            recentGroupsCollectionView.heightAnchor.constraint(equalToConstant: 250)
             ])
         
         NSLayoutConstraint.activate([
             recommendedLabel.topAnchor.constraint(equalTo: recentGroupsCollectionView.bottomAnchor, constant: 25),
-            recommendedLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            recommendedLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             recommendedLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             recommendedLabel.heightAnchor.constraint(equalToConstant: 50)
             ])
@@ -140,8 +141,8 @@ class ViewController: UIViewController {
     @objc func presentBrowseViewController() {
         navigationController?.pushViewController(browseViewController, animated: true)
     }
-
-
+    
+    
 }
 
 extension ViewController: UICollectionViewDataSource {
@@ -151,8 +152,6 @@ extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuse, for: indexPath) as! RecentGroupCollectionViewCell
-        cell.layer.cornerRadius = 10
-        cell.clipsToBounds = true
         let group = initialRecentGroups[indexPath.item]
         cell.configure(for: group)
         return cell
@@ -170,7 +169,7 @@ extension ViewController: UICollectionViewDelegate {
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let length = (collectionView.frame.width / 2 - 5)
-        return CGSize(width: length, height: length / 2)
+        let length = (collectionView.frame.height - 30) / 2
+        return CGSize(width: length, height: length)
     }
 }

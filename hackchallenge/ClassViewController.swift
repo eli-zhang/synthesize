@@ -53,7 +53,7 @@ class ClassViewController: UIViewController {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.autocorrectionType = .no
         view.addSubview(searchBar)
-        searchBar.placeholder = "Find a group"
+        searchBar.placeholder = "Find a group in " + classForView.getTitle()
         searchBar.delegate = self
         
         setupConstraints()
