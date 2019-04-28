@@ -126,7 +126,8 @@ class ViewController: UIViewController {
             recentGroupsCollectionView.topAnchor.constraint(equalTo: recentLabel.bottomAnchor, constant: 25),
             recentGroupsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             recentGroupsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            recentGroupsCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor)
+//            recentGroupsCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor)
+            recentGroupsCollectionView.heightAnchor.constraint(equalToConstant: 250)
             ])
         
         NSLayoutConstraint.activate([

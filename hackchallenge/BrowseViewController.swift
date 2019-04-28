@@ -135,7 +135,7 @@ extension BrowseViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = displayedCourses[indexPath.row]
         let classViewController = ClassViewController()
-        classViewController.title = cell.getTitle()
+        classViewController.title = "Groups - " + cell.getTitle()
         navigationController?.pushViewController(classViewController, animated: true)
     }
     
