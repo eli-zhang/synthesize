@@ -83,7 +83,7 @@ class BrowseViewController: UIViewController {
             classTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             classTableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             //classTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            classTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            classTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             ])
         
         

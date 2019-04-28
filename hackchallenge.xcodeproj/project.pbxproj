@@ -12,6 +12,7 @@
 		120EE35E22722607002DA6F2 /* AllGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120EE35D22722607002DA6F2 /* AllGroupsViewController.swift */; };
 		12278E54226F843E009867D6 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12278E53226F843E009867D6 /* Group.swift */; };
 		122DB2D82273A87700E8FCC6 /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122DB2D72273A87700E8FCC6 /* GroupViewController.swift */; };
+		122F006F22755BAB003536D3 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122F006E22755BAB003536D3 /* GroupTableViewCell.swift */; };
 		1258569D226FD80200AA6366 /* ClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1258569C226FD80200AA6366 /* ClassViewController.swift */; };
 		1261854B226F6187004815D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1261854A226F6187004815D2 /* AppDelegate.swift */; };
 		1261854D226F6187004815D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1261854C226F6187004815D2 /* ViewController.swift */; };
@@ -30,6 +31,7 @@
 		120EE35D22722607002DA6F2 /* AllGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsViewController.swift; sourceTree = "<group>"; };
 		12278E53226F843E009867D6 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		122DB2D72273A87700E8FCC6 /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		122F006E22755BAB003536D3 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		1258569C226FD80200AA6366 /* ClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassViewController.swift; sourceTree = "<group>"; };
 		12618547226F6187004815D2 /* hackchallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackchallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1261854A226F6187004815D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				1261855E226F61D3004815D2 /* class.swift */,
 				12278E53226F843E009867D6 /* Group.swift */,
 				1258569C226FD80200AA6366 /* ClassViewController.swift */,
+				122F006E22755BAB003536D3 /* GroupTableViewCell.swift */,
 				120EE35D22722607002DA6F2 /* AllGroupsViewController.swift */,
 				122DB2D72273A87700E8FCC6 /* GroupViewController.swift */,
 				1261854C226F6187004815D2 /* ViewController.swift */,
@@ -245,6 +248,7 @@
 				1261854D226F6187004815D2 /* ViewController.swift in Sources */,
 				12618561226F620C004815D2 /* ClassTableViewCell.swift in Sources */,
 				1261854B226F6187004815D2 /* AppDelegate.swift in Sources */,
+				122F006F22755BAB003536D3 /* GroupTableViewCell.swift in Sources */,
 				12618563226F6DE4004815D2 /* RecentGroupCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
