@@ -39,7 +39,7 @@ class NetworkManager {
         }
     }
     
-    static func getUser(id: Int, completion: @escaping (User) -> Void, failure: @escaping () -> Void) {
+    static func getUser(id: Int, completion: @escaping (User) -> Void) {
         let endpoint = url + "/api/user/\(id)"
         Alamofire.request(endpoint, method: .get).validate().responseData { response in
             switch response.result {
@@ -60,12 +60,11 @@ class NetworkManager {
                 else {
                     print(error.localizedDescription)
                 }
-                failure()
             }
         }
     }
     
-    static func modifyUser(id: Int, username: String, name: String, completion: @escaping (User) -> Void, failure: @escaping () -> Void) {
+    static func modifyUser(id: Int, username: String, name: String, completion: @escaping (User) -> Void) {
         let endpoint = url + "/api/user/"
         let parameters: Parameters = ["username": username,
                                       "name": name]
@@ -92,7 +91,7 @@ class NetworkManager {
         }
     }
     
-    static func deleteAllUsers(completion: @escaping () -> Void, failure: @escaping () -> Void) {
+    static func deleteAllUsers(completion: @escaping () -> Void) {
         let endpoint = url + "api/users/"
         Alamofire.request(endpoint, method: .delete).validate().responseData { response in
             switch response.result {
@@ -113,20 +112,19 @@ class NetworkManager {
                 else {
                     print(error.localizedDescription)
                 }
-                failure()
             }
         }
     }
     
-    static func getUsers(completion: @escaping ([User]) -> Void, failure: @escaping () -> Void ) {
+    static func getUsers(completion: @escaping ([User]) -> Void) {
         let endpoint = url + "/api/users/"
         Alamofire.request(endpoint, method: .get).validate().responseData { response in
             switch response.result {
             case let .success(data):
                 let decoder = JSONDecoder()
-                if let multiUserInfo = try? decoder.decode(MultiUserData.self, from: data) {
-                    if multiUserInfo.success {
-                        completion(multiUserInfo.data)
+                if let multiUserData = try? decoder.decode(MultiUserData.self, from: data) {
+                    if multiUserData.success {
+                        completion(multiUserData.data)
                     }
                 }
             case let .failure(error):
@@ -139,12 +137,11 @@ class NetworkManager {
                 else {
                     print(error.localizedDescription)
                 }
-                failure()
             }
         }
     }
     
-    static func getClasses(completion: @escaping ([ClassInfo]) -> Void, failure: @escaping () -> Void ) {
+    static func getClasses(completion: @escaping ([ClassInfo]) -> Void) {
         let endpoint = url + "/api/classes/"
         Alamofire.request(endpoint, method: .get).validate().responseData { response in
             switch response.result {
@@ -165,22 +162,98 @@ class NetworkManager {
                 else {
                     print(error.localizedDescription)
                 }
-                failure()
             }
         }
     }
     
-    static func createAssignment(name: String, completion: @escaping () -> Void) {
-        let endpoint = url + "/api/user/"
-        let parameters: Parameters = ["username": username,
-                                      "name": name]
+    static func createAssignment(classId: Int, name: String, completion: @escaping (Assignment) -> Void) {
+        let endpoint = url + "/api/class/\(classId)/assignment/"
+        let parameters: Parameters = ["name": name]
         Alamofire.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
             switch response.result {
             case let .success(data):
                 let decoder = JSONDecoder()
-                if let userdata = try? decoder.decode(UserData.self, from: data) {
-                    if userdata.success {
-                        completion()
+                if let assignmentData = try? decoder.decode(AssignmentData.self, from: data) {
+                    if assignmentData.success {
+                        completion(assignmentData.data)
+                    }
+                }
+            case let .failure(error):
+                if let data = response.data {
+                    let decoder = JSONDecoder()
+                    if let errorMessage = try? decoder.decode(ErrorMessage.self, from: data) {
+                        print(errorMessage.error)
+                    }
+                }
+                else {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    static func getAssignmentsFromClass(classId: Int, completion: @escaping ([Assignment]) -> Void) {
+        let endpoint = url + "/api/class/\(classId)/assignments/"
+        Alamofire.request(endpoint, method: .get).validate().responseData { response in
+            switch response.result {
+            case let .success(data):
+                let decoder = JSONDecoder()
+                if let multiAssignmentData = try? decoder.decode(MultiAssignmentData.self, from: data) {
+                    if multiAssignmentData.success {
+                        completion(multiAssignmentData.data)
+                    }
+                }
+            case let .failure(error):
+                if let data = response.data {
+                    let decoder = JSONDecoder()
+                    if let errorMessage = try? decoder.decode(ErrorMessage.self, from: data) {
+                        print(errorMessage.error)
+                    }
+                }
+                else {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    static func addMessageToAssignment(classId: Int, assignmentId: Int, message: String, user: String, time: String, completion: @escaping (Message) -> Void) {
+        let endpoint = url + "/api/class/\(classId)/assignment/\(assignmentId)/"
+        let parameters: Parameters = ["message": message,
+                                      "user": user,
+                                      "time": time]
+        Alamofire.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in
+            switch response.result {
+            case let .success(data):
+                let decoder = JSONDecoder()
+                if let messageData = try? decoder.decode(MessageData.self, from: data) {
+                    if messageData.success {
+                        completion(messageData.data)
+                    }
+                }
+            case let .failure(error):
+                if let data = response.data {
+                    let decoder = JSONDecoder()
+                    if let errorMessage = try? decoder.decode(ErrorMessage.self, from: data) {
+                        print(errorMessage.error)
+                    }
+                }
+                else {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    static func getMessagesFromAssignment(classId: Int, assignmentId: Int, message: String, user: String, time: String, completion: @escaping ([Message]) -> Void) {
+        let endpoint = url + "/api/class/\(classId)/assignment/\(assignmentId)/"
+        Alamofire.request(endpoint, method: .get).validate().responseData { response in
+            switch response.result {
+            case let .success(data):
+                let decoder = JSONDecoder()
+                if let multiMessageData = try? decoder.decode(MultiMessageData.self, from: data) {
+                    if multiMessageData.success {
+                        completion(multiMessageData.data)
                     }
                 }
             case let .failure(error):
