@@ -30,26 +30,7 @@ class BrowseViewController: UIViewController {
             [NSAttributedString.Key.foregroundColor: UIColor.white,
              NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         
-        
-//        originalCourses = [
-//            Class(subject: "CS", number: 1998, name: "Intro to iOS Development"),
-//            Class(subject: "MATH", number: 2210, name: "Linear Algebra"),
-//            Class(subject: "PE", number: 1300, name: "Bowling")]
-        
-        let cs3410 = Class(subject: "CS", number: 3410, name: "Computer System Organization and Programming")
-        let cs2300 = Class(subject: "CS", number: 2300, name: "Intermediate Web Design and Programming")
-        let orie3120 = Class(subject: "ORIE", number: 3120, name: "Practical Tools for OR and Machine Learning")
-        let math2930 = Class(subject: "MATH", number: 2930, name: "Differential Equations")
-        let music1312 = Class(subject: "MUSIC", number: 1312, name: "History of Rock Music")
-        let hadm1111 = Class(subject: "HADM", number: 1111, name: "Hotel Class")
-        let ilr2100 = Class(subject: "ILR", number: 2100, name: "Labor Relations")
-        let bio1000 = Class(subject: "BIO", number: 1111, name: "Bio 1")
-        
-//        displayedCourses = [
-//            Class(subject: "CS", number: 1998, name: "Intro to iOS Development"),
-//            Class(subject: "MATH", number: 2210, name: "Linear Algebra"),
-//            Class(subject: "PE", number: 1300, name: "Bowling")]
-        displayedCourses = [cs3410, cs2300, orie3120, math2930, music1312, hadm1111, ilr2100, bio1000]
+        displayedCourses = []
         originalCourses = displayedCourses
         
         searchBar = UISearchBar()
@@ -67,10 +48,8 @@ class BrowseViewController: UIViewController {
         
         view.addSubview(classTableView)
         
-    
-        
         setupConstraints()
-        //getCourses()
+        getCourses()
     }
     
     func setupConstraints() {
@@ -85,14 +64,14 @@ class BrowseViewController: UIViewController {
             //classTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             classTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             ])
-        
-        
     }
     
     func getCourses() {
-        NetworkManager.getClasses()
+        NetworkManager.getClasses(completion: { classes in
+            self.originalCourses = classes
+            self.displayedCourses = classes
+            DispatchQueue.main.async {self.classTableView.reloadData()}})
     }
-    
 }
 
 extension BrowseViewController: UITableViewDataSource{
@@ -115,14 +94,14 @@ extension BrowseViewController: UITableViewDataSource{
 extension BrowseViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         displayedCourses.removeAll()
-        if searchBar.text == ""{
+        if searchBar.text == "" {
             for course in originalCourses {
                 displayedCourses.append(course)
             }
         }
         else {
             for course in originalCourses {
-                if course.subjectnumber.contains(searchText.uppercased()) {
+                if course.getTitle().contains(searchText.uppercased()) {
                     displayedCourses.append(course)
                 }
             }

@@ -141,15 +141,15 @@ class NetworkManager {
         }
     }
     
-    static func getClasses(completion: @escaping ([ClassInfo]) -> Void) {
+    static func getClasses(completion: @escaping ([Class]) -> Void) {
         let endpoint = url + "/api/classes/"
         Alamofire.request(endpoint, method: .get).validate().responseData { response in
             switch response.result {
             case let .success(data):
                 let decoder = JSONDecoder()
-                if let classInfo = try? decoder.decode(ClassData.self, from: data) {
-                    if classInfo.success {
-                        completion(classInfo.data)
+                if let classData = try? decoder.decode(ClassData.self, from: data) {
+                    if classData.success {
+                        completion(classData.data)
                     }
                 }
             case let .failure(error):

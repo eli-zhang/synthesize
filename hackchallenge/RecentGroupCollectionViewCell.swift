@@ -44,6 +44,10 @@ class RecentGroupCollectionViewCell: UICollectionViewCell {
         setupConstraints()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func setupConstraints() {
         NSLayoutConstraint.activate([
             classImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -68,23 +72,16 @@ class RecentGroupCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(for group: Group) {
-        if let image = group.relatedClass.imageName {
-            classImageView.image = UIImage(named: image)
-        }
+        let image = group.relatedClass.getImageName()
+        classImageView.image = UIImage(named: image)
         classNameLabel.text = group.relatedClass.subject + " " + String(group.relatedClass.number)
         groupNameLabel.text = group.name
     }
     
     func configure(for course: Class) {
-        if let image = course.imageName {
-            classImageView.image = UIImage(named: image)
-        }
+        let image = course.getImageName()
+        classImageView.image = UIImage(named: image)
         classNameLabel.text = course.getTitle()
         groupNameLabel.text = nil
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }

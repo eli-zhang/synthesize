@@ -67,10 +67,8 @@ class ClassTableViewCell: UITableViewCell {
     }
     
     func configure(for course: Class) {
-        cellLabel.text = course.subjectnumber
-        if let image = course.imageName {
-            cellImageView.image = UIImage(named: image)
-        }
+        cellLabel.text = course.getTitle()
+        cellImageView.image = UIImage(named: course.getImageName())
         courseNameLabel.text = course.name
     }
 }
