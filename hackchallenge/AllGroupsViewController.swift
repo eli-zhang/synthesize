@@ -25,14 +25,14 @@ class AllGroupsViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         
-        let cs3410 = Class(subject: "CS", number: 3410, name: "Computer System Organization and Programming")
-        let cs2300 = Class(subject: "CS", number: 2300, name: "Intermediate Web Design and Programming")
-        let orie3120 = Class(subject: "ORIE", number: 3120, name: "Practical Tools for OR and Machine Learning")
-        let math2930 = Class(subject: "MATH", number: 2930, name: "Differential Equations")
-        let music1312 = Class(subject: "MUSIC", number: 1312, name: "History of Rock Music")
-        let hadm1111 = Class(subject: "HADM", number: 1111, name: "Hotel Class")
-        let ilr2100 = Class(subject: "ILR", number: 2100, name: "Labor Relations")
-        let bio1000 = Class(subject: "BIO", number: 1111, name: "Bio 1")
+        let cs3410 = Class(id: 0, subject: "CS", number: 3410, name: "Computer System Organization and Programming")
+        let cs2300 = Class(id: 1, subject: "CS", number: 2300, name: "Intermediate Web Design and Programming")
+        let orie3120 = Class(id: 2, subject: "ORIE", number: 3120, name: "Practical Tools for OR and Machine Learning")
+        let math2930 = Class(id: 3, subject: "MATH", number: 2930, name: "Differential Equations")
+        let music1312 = Class(id: 4, subject: "MUSIC", number: 1312, name: "History of Rock Music")
+        let hadm1111 = Class(id: 5, subject: "HADM", number: 1111, name: "Hotel Class")
+        let ilr2100 = Class(id: 6, subject: "ILR", number: 2100, name: "Labor Relations")
+        let bio1000 = Class(id: 7, subject: "BIO", number: 1111, name: "Bio 1")
         let group1 = Group(relatedClass: cs3410, name: "Project 1")
         let group2 = Group(relatedClass: cs2300, name: "Project 4")
         let group3 = Group(relatedClass: orie3120, name: "Prelim 2")

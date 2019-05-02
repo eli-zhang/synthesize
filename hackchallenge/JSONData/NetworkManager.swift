@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-let url = "http://localhost:5000"
+let url = "http://35.237.82.135"
 
 class NetworkManager {
     static func createUser(username: String, name: String, completion: @escaping () -> Void) {
@@ -245,7 +245,7 @@ class NetworkManager {
         }
     }
     
-    static func getMessagesFromAssignment(classId: Int, assignmentId: Int, message: String, user: String, time: String, completion: @escaping ([Message]) -> Void) {
+    static func getMessagesFromAssignment(classId: Int, assignmentId: Int, completion: @escaping ([Message]) -> Void) {
         let endpoint = url + "/api/class/\(classId)/assignment/\(assignmentId)/"
         Alamofire.request(endpoint, method: .get).validate().responseData { response in
             switch response.result {

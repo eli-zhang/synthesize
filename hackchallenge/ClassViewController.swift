@@ -15,10 +15,10 @@ class ClassViewController: UIViewController {
     
     var groupsTableView: UITableView!
     var classForView: Class!
-    var originalGroups: [Group]!
-    var displayedGroups: [Group]!
+    var originalGroups: [Assignment] = []
+    var displayedGroups: [Assignment] = []
     
-    let reuse = "groupReuse"
+    let reuse = "assignmentReuse"
     
     init(relatedClass: Class) {
         classForView = relatedClass
@@ -32,15 +32,13 @@ class ClassViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        title = "Groups - \(classForView.getTitle())"
         view.backgroundColor = .white
         //let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
-        let group1 = Group(relatedClass: classForView, name: "Problem set 1")
-        let group2 = Group(relatedClass: classForView, name: "Problem set 2")
+//        let group1 = Group(relatedClass: classForView, name: "Problem set 1")
+//        let group2 = Group(relatedClass: classForView, name: "Problem set 2")
         
-        displayedGroups = [group1, group2]
-        originalGroups = displayedGroups
+        updateGroups()
         
         groupsTableView = UITableView()
         groupsTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,6 +72,14 @@ class ClassViewController: UIViewController {
             ])
     }
     
+    func updateGroups() {
+        NetworkManager.getAssignmentsFromClass(classId: classForView.id,
+                                               completion: { assignments in
+                                                self.displayedGroups = assignments
+                                                self.originalGroups = self.displayedGroups
+                                                self.groupsTableView.reloadData()
+        })
+    }
 }
 
 extension ClassViewController: UITableViewDataSource{
@@ -92,10 +98,11 @@ extension ClassViewController: UITableViewDataSource{
 
 extension ClassViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = displayedGroups[indexPath.row]
-        let groupViewController = GroupViewController()
-        groupViewController.title = "Groups - " + cell.relatedClass.getTitle()
-        navigationController?.pushViewController(groupViewController, animated: true)
+        let assignment = displayedGroups[indexPath.row]
+        let messagesViewController = MessagesViewController()
+        messagesViewController.delegate = self
+        messagesViewController.addAssignmentInfo(assignment: assignment)
+        navigationController?.pushViewController(messagesViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

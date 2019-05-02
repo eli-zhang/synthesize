@@ -38,8 +38,7 @@ class GroupTableViewCell: UITableViewCell {
             ])
     }
     
-    func configure(for group: Group) {
-        
+    func configure(for group: Assignment) {
         cellLabel.text = group.name
     }
 }

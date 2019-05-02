@@ -14,7 +14,7 @@ struct ClassData: Codable {
 }
 
 struct Class: Codable {
-    
+    let id: Int
     let subject: String
     let number: Int
     let name: String
