@@ -84,7 +84,8 @@ class ClassViewController: UIViewController {
     }
     
     @objc func addGroup() {
-        
+        let addGroupViewController = AddGroupViewController(relatedClass: classForView)
+        navigationController?.pushViewController(addGroupViewController, animated: true)
     }
 }
 

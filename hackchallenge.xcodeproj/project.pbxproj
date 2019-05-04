@@ -22,6 +22,7 @@
 		1261855F226F61D3004815D2 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1261855E226F61D3004815D2 /* Class.swift */; };
 		12618561226F620C004815D2 /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12618560226F620C004815D2 /* ClassTableViewCell.swift */; };
 		12618563226F6DE4004815D2 /* RecentGroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12618562226F6DE4004815D2 /* RecentGroupCollectionViewCell.swift */; };
+		12CD1DC0227E0DBC00536C35 /* AddGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CD1DBF227E0DBC00536C35 /* AddGroupViewController.swift */; };
 		78E293BE7FEE58AEDBCC965D /* Pods_hackchallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E954EFE1D84A91239F4A65F /* Pods_hackchallenge.framework */; };
 		CA78C985227659430059526C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA78C984227659430059526C /* User.swift */; };
 		CA78C98E227691EB0059526C /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA78C98D227691EB0059526C /* Assignment.swift */; };
@@ -48,6 +49,7 @@
 		1261855E226F61D3004815D2 /* Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
 		12618560226F620C004815D2 /* ClassTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
 		12618562226F6DE4004815D2 /* RecentGroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentGroupCollectionViewCell.swift; sourceTree = "<group>"; };
+		12CD1DBF227E0DBC00536C35 /* AddGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupViewController.swift; sourceTree = "<group>"; };
 		4E954EFE1D84A91239F4A65F /* Pods_hackchallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hackchallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64F255BD14B41A022A903F57 /* Pods-hackchallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hackchallenge.release.xcconfig"; path = "Target Support Files/Pods-hackchallenge/Pods-hackchallenge.release.xcconfig"; sourceTree = "<group>"; };
 		CA78C984227659430059526C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				1261855C226F61C2004815D2 /* BrowseViewController.swift */,
 				12618560226F620C004815D2 /* ClassTableViewCell.swift */,
 				1258569C226FD80200AA6366 /* ClassViewController.swift */,
+				12CD1DBF227E0DBC00536C35 /* AddGroupViewController.swift */,
 				122F006E22755BAB003536D3 /* GroupTableViewCell.swift */,
 				120EE35D22722607002DA6F2 /* AllGroupsViewController.swift */,
 				122DB2D72273A87700E8FCC6 /* GroupViewController.swift */,
@@ -272,6 +275,7 @@
 				CA78C985227659430059526C /* User.swift in Sources */,
 				1261855F226F61D3004815D2 /* Class.swift in Sources */,
 				1261855D226F61C2004815D2 /* BrowseViewController.swift in Sources */,
+				12CD1DC0227E0DBC00536C35 /* AddGroupViewController.swift in Sources */,
 				CABED14C227A85F800A5283C /* MessagesViewController.swift in Sources */,
 				1261854D226F6187004815D2 /* ViewController.swift in Sources */,
 				12618561226F620C004815D2 /* ClassTableViewCell.swift in Sources */,
