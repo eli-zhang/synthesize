@@ -27,7 +27,7 @@
 		CA78C98E227691EB0059526C /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA78C98D227691EB0059526C /* Assignment.swift */; };
 		CA78C990227692300059526C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA78C98F227692300059526C /* Message.swift */; };
 		CABED14C227A85F800A5283C /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABED14B227A85F800A5283C /* MessagesViewController.swift */; };
-		CABED14E227A9FC400A5283C /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABED14D227A9FC400A5283C /* ErrorMessage.swift */; };
+		EAEF96B5227DDCBC00952F12 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF96B4227DDCBC00952F12 /* ErrorMessage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,8 +54,8 @@
 		CA78C98D227691EB0059526C /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		CA78C98F227692300059526C /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		CABED14B227A85F800A5283C /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
-		CABED14D227A9FC400A5283C /* ErrorMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorMessage.swift; path = hackchallenge/ErrorMessage.swift; sourceTree = SOURCE_ROOT; };
 		D6E730C45ED4B093776E8EC9 /* Pods-hackchallenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hackchallenge.debug.xcconfig"; path = "Target Support Files/Pods-hackchallenge/Pods-hackchallenge.debug.xcconfig"; sourceTree = "<group>"; };
+		EAEF96B4227DDCBC00952F12 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,10 +133,10 @@
 				1261855E226F61D3004815D2 /* Class.swift */,
 				CA78C984227659430059526C /* User.swift */,
 				12278E53226F843E009867D6 /* Group.swift */,
-				CABED14D227A9FC400A5283C /* ErrorMessage.swift */,
 				120D221622717389002B5445 /* NetworkManager.swift */,
 				CA78C98D227691EB0059526C /* Assignment.swift */,
 				CA78C98F227692300059526C /* Message.swift */,
+				EAEF96B4227DDCBC00952F12 /* ErrorMessage.swift */,
 			);
 			path = JSONData;
 			sourceTree = "<group>";
@@ -264,7 +264,7 @@
 				122DB2D82273A87700E8FCC6 /* GroupViewController.swift in Sources */,
 				120D221722717389002B5445 /* NetworkManager.swift in Sources */,
 				CA78C990227692300059526C /* Message.swift in Sources */,
-				CABED14E227A9FC400A5283C /* ErrorMessage.swift in Sources */,
+				EAEF96B5227DDCBC00952F12 /* ErrorMessage.swift in Sources */,
 				12278E54226F843E009867D6 /* Group.swift in Sources */,
 				120EE35E22722607002DA6F2 /* AllGroupsViewController.swift in Sources */,
 				120EE35C227220C4002DA6F2 /* CustomTabBarController.swift in Sources */,
