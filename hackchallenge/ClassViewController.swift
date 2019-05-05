@@ -37,6 +37,8 @@ class ClassViewController: UIViewController {
         //let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
 //        let group1 = Group(relatedClass: classForView, name: "Problem set 1")
 //        let group2 = Group(relatedClass: classForView, name: "Problem set 2")
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addGroup))
+        self.navigationItem.setRightBarButton(addButton, animated: true)
         
         updateGroups()
         
@@ -79,6 +81,11 @@ class ClassViewController: UIViewController {
                                                 self.originalGroups = self.displayedGroups
                                                 self.groupsTableView.reloadData()
         })
+    }
+    
+    @objc func addGroup() {
+        let addGroupViewController = AddGroupViewController(relatedClass: classForView)
+        navigationController?.pushViewController(addGroupViewController, animated: true)
     }
 }
 
