@@ -89,9 +89,21 @@ class ClassViewController: UIViewController {
         }
     }
     
+//    @objc func addGroup() {
+////        let addGroupViewController = AddGroupViewController(relatedClass: classForView)
+////        navigationController?.pushViewController(addGroupViewController, animated: true)
+//    }
+    
     @objc func addGroup() {
-        let addGroupViewController = AddGroupViewController(relatedClass: classForView)
-        navigationController?.pushViewController(addGroupViewController, animated: true)
+        let alert = UIAlertController(title: "Name your assignment:", message: nil, preferredStyle: .alert)
+        alert.addTextField()
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alert] _ in
+            let answer = alert.textFields![0]
+            NetworkManager.createAssignment(classId: self.classForView.id, name: answer.text ?? "New Assignment", completion: { assignment in // Do anything with the assignment here
+            })
+        }
+        alert.addAction(submitAction)
+        present(alert, animated: true)
     }
 }
 
