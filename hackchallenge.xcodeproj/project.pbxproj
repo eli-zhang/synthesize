@@ -28,6 +28,7 @@
 		CA78C98E227691EB0059526C /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA78C98D227691EB0059526C /* Assignment.swift */; };
 		CA78C990227692300059526C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA78C98F227692300059526C /* Message.swift */; };
 		CABED14C227A85F800A5283C /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABED14B227A85F800A5283C /* MessagesViewController.swift */; };
+		CAC169F1227F8AA80051070A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC169F0227F8AA80051070A /* Colors.swift */; };
 		EAEF96B5227DDCBC00952F12 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF96B4227DDCBC00952F12 /* ErrorMessage.swift */; };
 		EAEF96B7227F64F200952F12 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF96B6227F64F200952F12 /* MessageCell.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		CA78C98D227691EB0059526C /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		CA78C98F227692300059526C /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		CABED14B227A85F800A5283C /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		CAC169F0227F8AA80051070A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D6E730C45ED4B093776E8EC9 /* Pods-hackchallenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hackchallenge.debug.xcconfig"; path = "Target Support Files/Pods-hackchallenge/Pods-hackchallenge.debug.xcconfig"; sourceTree = "<group>"; };
 		EAEF96B4227DDCBC00952F12 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		EAEF96B6227F64F200952F12 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				1261854A226F6187004815D2 /* AppDelegate.swift */,
 				120EE35B227220C4002DA6F2 /* CustomTabBarController.swift */,
 				1261855C226F61C2004815D2 /* BrowseViewController.swift */,
+				CAC169F0227F8AA80051070A /* Colors.swift */,
 				12618560226F620C004815D2 /* ClassTableViewCell.swift */,
 				1258569C226FD80200AA6366 /* ClassViewController.swift */,
 				12CD1DBF227E0DBC00536C35 /* AddGroupViewController.swift */,
@@ -247,12 +250,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-hackchallenge/Pods-hackchallenge-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -276,6 +281,7 @@
 				120EE35E22722607002DA6F2 /* AllGroupsViewController.swift in Sources */,
 				120EE35C227220C4002DA6F2 /* CustomTabBarController.swift in Sources */,
 				1258569D226FD80200AA6366 /* ClassViewController.swift in Sources */,
+				CAC169F1227F8AA80051070A /* Colors.swift in Sources */,
 				CA78C985227659430059526C /* User.swift in Sources */,
 				1261855F226F61D3004815D2 /* Class.swift in Sources */,
 				1261855D226F61C2004815D2 /* BrowseViewController.swift in Sources */,

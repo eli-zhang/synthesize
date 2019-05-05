@@ -11,14 +11,13 @@ import UIKit
 class GroupTableViewCell: UITableViewCell {
     
     var cellLabel: UILabel!
-    let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         cellLabel = UILabel()
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
-        cellLabel.textColor = mainColor
+        cellLabel.textColor = Colors.mainColor
         cellLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         contentView.addSubview(cellLabel)
         

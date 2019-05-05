@@ -28,9 +28,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         title = "Home"
-        let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
         view.backgroundColor = .white
-        self.navigationController!.navigationBar.barTintColor = mainColor
+        self.navigationController!.navigationBar.barTintColor = Colors.mainColor
         self.navigationController!.navigationBar.titleTextAttributes =
             [NSAttributedString.Key.foregroundColor: UIColor.white,
              NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
@@ -38,14 +37,14 @@ class ViewController: UIViewController {
         recentLabel = UILabel()
         recentLabel.translatesAutoresizingMaskIntoConstraints = false
         recentLabel.font = UIFont.systemFont(ofSize: 40, weight: .bold)
-        recentLabel.textColor = mainColor
+        recentLabel.textColor = Colors.mainColor
         recentLabel.text = "Recent Groups"
         view.addSubview(recentLabel)
         
         recentClassesLabel = UILabel()
         recentClassesLabel.translatesAutoresizingMaskIntoConstraints = false
         recentClassesLabel.font = UIFont.systemFont(ofSize: 40, weight: .bold)
-        recentClassesLabel.textColor = mainColor
+        recentClassesLabel.textColor = Colors.mainColor
         recentClassesLabel.text = "Recent Classes"
         view.addSubview(recentClassesLabel)
         

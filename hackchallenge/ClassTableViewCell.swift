@@ -13,14 +13,13 @@ class ClassTableViewCell: UITableViewCell {
     var cellLabel: UILabel!
     var cellImageView: UIImageView!
     var courseNameLabel: UILabel!
-    let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         cellLabel = UILabel()
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
-        cellLabel.textColor = mainColor
+        cellLabel.textColor = Colors.mainColor
         cellLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         contentView.addSubview(cellLabel)
         
@@ -32,7 +31,7 @@ class ClassTableViewCell: UITableViewCell {
         
         courseNameLabel = UILabel()
         courseNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        courseNameLabel.textColor = mainColor
+        courseNameLabel.textColor = Colors.mainColor
         courseNameLabel.font = UIFont.systemFont(ofSize: 12)
         contentView.addSubview(courseNameLabel)
         

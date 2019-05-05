@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class BrowseViewController: UIViewController {
     
@@ -18,21 +19,22 @@ class BrowseViewController: UIViewController {
     var displayedCourses: [Class]!
     
     let refreshControl = UIRefreshControl()
+    let loadingIndicator = NVActivityIndicatorView(frame: .zero, type: .circleStrokeSpin, color: Colors.mainColor)
     let reuseIdentifier = "reuse"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Browse"
-        let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
         view.backgroundColor = .white
-        self.navigationController!.navigationBar.barTintColor = mainColor
+        self.navigationController!.navigationBar.barTintColor = Colors.mainColor
         self.navigationController!.navigationBar.titleTextAttributes =
             [NSAttributedString.Key.foregroundColor: UIColor.white,
              NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         
         displayedCourses = []
         originalCourses = displayedCourses
+        
         
         searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -42,13 +44,19 @@ class BrowseViewController: UIViewController {
         searchBar.delegate = self
         
         refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+        
         classTableView = UITableView()
         classTableView.translatesAutoresizingMaskIntoConstraints = false
         classTableView.register(ClassTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         classTableView.dataSource = self
         classTableView.delegate = self
+        classTableView.alwaysBounceVertical = true
         classTableView.refreshControl = refreshControl
         view.addSubview(classTableView)
+        
+        loadingIndicator.alpha = 0.0
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loadingIndicator)
         
         setupConstraints()
         getCourses()
@@ -64,7 +72,12 @@ class BrowseViewController: UIViewController {
             classTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             classTableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             //classTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            classTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            classTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            loadingIndicator.centerXAnchor.constraint(equalTo: classTableView.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: classTableView.centerYAnchor),
+            loadingIndicator.heightAnchor.constraint(equalToConstant: 60),
+            loadingIndicator.widthAnchor.constraint(equalToConstant: 60)
             ])
     }
     
@@ -76,9 +89,20 @@ class BrowseViewController: UIViewController {
     }
     
     func getCourses() {
+        classTableView.separatorStyle = .none
+        loadingIndicator.startAnimating()
+        UIView.animate(withDuration: 0.4) {
+            self.loadingIndicator.alpha = 1.0
+        }
         NetworkManager.getClasses(completion: { classes in
             self.originalCourses = classes
             self.displayedCourses = classes
+            UIView.animate(withDuration: 0.4, animations: {
+                self.loadingIndicator.alpha = 0.0
+            }) { complete in
+                self.loadingIndicator.stopAnimating()
+                self.classTableView.separatorStyle = .singleLine
+            }
             DispatchQueue.main.async {self.classTableView.reloadData()}})
     }
 }

@@ -19,6 +19,7 @@ struct MessageData: Codable {
 struct Message: Codable {
     let id: Int
     let message: String
-    let user: String
+    let username: String
+    let name: String
     let time: String
 }

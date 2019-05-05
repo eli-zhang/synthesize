@@ -217,9 +217,10 @@ class NetworkManager {
         }
     }
     
-    static func addMessageToAssignment(classId: Int, assignmentId: Int, message: String, user: String, time: String, completion: @escaping (Message) -> Void) {
+    static func addMessageToAssignment(classId: Int, assignmentId: Int, message: String, username: String, user: String, time: String, completion: @escaping (Message) -> Void) {
         let endpoint = url + "/api/class/\(classId)/assignment/\(assignmentId)/"
         let parameters: Parameters = ["message": message,
+                                      "username": username,
                                       "user": user,
                                       "time": time]
         Alamofire.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseData { response in

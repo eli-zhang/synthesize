@@ -13,12 +13,11 @@ class RecentGroupCollectionViewCell: UICollectionViewCell {
     var classImageView: UIImageView!
     var classNameLabel: UILabel!
     var groupNameLabel: UILabel!
-    let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.backgroundColor = mainColor
+        contentView.backgroundColor = Colors.mainColor
         contentView.layer.cornerRadius = 10
         
         classImageView = UIImageView()

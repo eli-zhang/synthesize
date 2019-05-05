@@ -34,7 +34,6 @@ class ClassViewController: UIViewController {
         super.viewDidLoad()
         title = "Groups - \(classForView.getTitle())"
         view.backgroundColor = .white
-        //let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addGroup))
         self.navigationItem.setRightBarButton(addButton, animated: true)
         

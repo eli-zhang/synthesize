@@ -15,9 +15,6 @@ class AddGroupViewController: UIViewController {
     var groupNameTextField: UITextField!
     var feedbackTextLabel: UILabel!
     
-    let grayColor: UIColor = UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1.0)
-    let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
-    
     init(relatedClass: Class) {
         classForView = relatedClass
         super.init(nibName: nil, bundle: nil)
@@ -38,9 +35,9 @@ class AddGroupViewController: UIViewController {
         groupNameTextField = UITextField()
         groupNameTextField.translatesAutoresizingMaskIntoConstraints = false
         groupNameTextField.placeholder = "Enter Group Name"
-        groupNameTextField.backgroundColor = grayColor
+        groupNameTextField.backgroundColor = Colors.grayColor
         groupNameTextField.layer.borderColor = UIColor.black.cgColor
-        groupNameTextField.textColor = mainColor
+        groupNameTextField.textColor = Colors.mainColor
         groupNameTextField.layer.cornerRadius = 3
         groupNameTextField.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         view.addSubview(groupNameTextField)
