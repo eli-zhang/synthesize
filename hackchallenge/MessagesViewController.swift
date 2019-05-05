@@ -17,6 +17,7 @@ class MessagesViewController: UIViewController, AssignmentInfo {
     var messagesCollectionView: UICollectionView!
     let padding: CGFloat = 8
     let headerHeight: CGFloat = 30
+    let reuseIdentifier = "reuse"
     
     var messages: [Message]!
     var assignmentInfo: Assignment!
@@ -41,7 +42,10 @@ class MessagesViewController: UIViewController, AssignmentInfo {
         
         messagesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         messagesCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        messagesCollectionView.backgroundColor = .purple
+        messagesCollectionView.backgroundColor = .white
+        messagesCollectionView.dataSource = self
+        messagesCollectionView.delegate = self
+        messagesCollectionView.register(MessageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         view.addSubview(messagesCollectionView)
         
         setupConstraints()
@@ -70,11 +74,30 @@ class MessagesViewController: UIViewController, AssignmentInfo {
         DispatchQueue.main.async {
             print(self.messages)
             // Reload table data
-            // Scroll to bottom
+            self.messagesCollectionView.reloadData()
+            // Scroll to bottom???
         }
     }
     
     func addAssignmentInfo(assignment: Assignment) {
         self.assignmentInfo = assignment
+    }
+}
+
+extension MessagesViewController: UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return messages?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MessageCell
+        cell.configure(for: messages[indexPath.item])
+        return cell
+    }
+}
+
+extension MessagesViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 100)
     }
 }
