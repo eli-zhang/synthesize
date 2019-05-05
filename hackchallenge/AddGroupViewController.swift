@@ -63,9 +63,13 @@ class AddGroupViewController: UIViewController {
             if (text.trimmingCharacters(in: .whitespacesAndNewlines) != "") {
                 // create
                 feedbackTextLabel.isHidden = true
-                NetworkManager.createAssignment(classId: classForView.id, name: text) { (<#Assignment#>) in
-                    <#code#>
-                }
+                
+                //IMPLEMENT THIS, FINISH NETWORK MANAGER CALL TO CREATE ASSIGNMENT!!
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //!!!!!!!!!!!!!
+//                NetworkManager.createAssignment(classId: classForView.id, name: text) { (<#Assignment#>) in
+//                    <#code#>
+//                }
                 navigationController?.popViewController(animated: true)
             }
             else {
