@@ -41,12 +41,13 @@ class MessagesViewController: UIViewController, AssignmentInfo {
     
     @objc func updateMessages() {
         NetworkManager.getMessagesFromAssignment(classId: assignmentInfo.class_id, assignmentId: assignmentInfo.id, completion: { messages in
-            self.messages = messages})
-        DispatchQueue.main.async {
-            print(self.messages)
-            // Reload table data
-            // Scroll to bottom
-        }
+            self.messages = messages
+            DispatchQueue.main.async {
+                print(self.messages)
+                // Reload table data
+                // Scroll to bottom
+            }
+        })
     }
     
     func addAssignmentInfo(assignment: Assignment) {
