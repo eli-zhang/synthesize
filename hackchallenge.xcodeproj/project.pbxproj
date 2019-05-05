@@ -29,6 +29,7 @@
 		CA78C990227692300059526C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA78C98F227692300059526C /* Message.swift */; };
 		CABED14C227A85F800A5283C /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABED14B227A85F800A5283C /* MessagesViewController.swift */; };
 		EAEF96B5227DDCBC00952F12 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF96B4227DDCBC00952F12 /* ErrorMessage.swift */; };
+		EAEF96B7227F64F200952F12 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF96B6227F64F200952F12 /* MessageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		CABED14B227A85F800A5283C /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		D6E730C45ED4B093776E8EC9 /* Pods-hackchallenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hackchallenge.debug.xcconfig"; path = "Target Support Files/Pods-hackchallenge/Pods-hackchallenge.debug.xcconfig"; sourceTree = "<group>"; };
 		EAEF96B4227DDCBC00952F12 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
+		EAEF96B6227F64F200952F12 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				12CD1DBF227E0DBC00536C35 /* AddGroupViewController.swift */,
 				122F006E22755BAB003536D3 /* GroupTableViewCell.swift */,
 				120EE35D22722607002DA6F2 /* AllGroupsViewController.swift */,
+				EAEF96B6227F64F200952F12 /* MessageCell.swift */,
 				122DB2D72273A87700E8FCC6 /* GroupViewController.swift */,
 				CABED14B227A85F800A5283C /* MessagesViewController.swift */,
 				CA78C98C227691C10059526C /* JSONData */,
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA78C98E227691EB0059526C /* Assignment.swift in Sources */,
+				EAEF96B7227F64F200952F12 /* MessageCell.swift in Sources */,
 				122DB2D82273A87700E8FCC6 /* GroupViewController.swift in Sources */,
 				120D221722717389002B5445 /* NetworkManager.swift in Sources */,
 				CA78C990227692300059526C /* Message.swift in Sources */,

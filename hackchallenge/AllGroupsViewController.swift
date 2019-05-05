@@ -10,11 +10,17 @@ import UIKit
 
 class AllGroupsViewController: UIViewController {
     
+    var searchBar: UISearchBar!
+    var groupsTableView: UITableView!
+    
     var initialRecentGroups: [Group]!
-
+    var displayedGroups: [Group]!
+    
+    let reuseIdentifier = "reuse"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = "My Groups"
         let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
         view.backgroundColor = .white
@@ -25,6 +31,43 @@ class AllGroupsViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         
+        displayedGroups = []
+        initialRecentGroups = displayedGroups
+        
+        searchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.autocorrectionType = .no
+        view.addSubview(searchBar)
+        searchBar.placeholder = "Search my groups"
+        searchBar.delegate = self
+        
+        groupsTableView = UITableView()
+        groupsTableView.translatesAutoresizingMaskIntoConstraints = false
+        groupsTableView.register(GroupTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        groupsTableView.dataSource = self
+        groupsTableView.delegate = self
+        view.addSubview(groupsTableView)
+        
+        
+        setupConstraints()
+        getGroups()
+    }
+    
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leftAnchor.constraint(equalTo: view.leftAnchor),
+            searchBar.rightAnchor.constraint(equalTo: view.rightAnchor),
+            
+            groupsTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            groupsTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            groupsTableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            groupsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+        
+    }
+    
+    func getGroups() {
         let cs3410 = Class(id: 0, subject: "CS", number: 3410, name: "Computer System Organization and Programming")
         let cs2300 = Class(id: 1, subject: "CS", number: 2300, name: "Intermediate Web Design and Programming")
         let orie3120 = Class(id: 2, subject: "ORIE", number: 3120, name: "Practical Tools for OR and Machine Learning")
@@ -47,18 +90,53 @@ class AllGroupsViewController: UIViewController {
         let group12 = Group(relatedClass: bio1000, name: "Prelim1")
         
         initialRecentGroups = [group1, group2, group3, group4, group5, group6, group7, group8, group9, group10, group11, group12]
-        
+        displayedGroups = initialRecentGroups
     }
     
-
+    
     /*
-    // MARK: - Navigation
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension AllGroupsViewController: UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        displayedGroups.removeAll()
+        if searchBar.text == "" {
+            for group in initialRecentGroups {
+                displayedGroups.append(group)
+            }
+        }
+        else {
+            for group in initialRecentGroups {
+                if group.name.contains(searchText.uppercased()) {
+                    displayedGroups.append(group)
+                }
+            }
+        }
     }
-    */
+}
 
+extension AllGroupsViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return displayedGroups.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! GroupTableViewCell
+        let group = displayedGroups[indexPath.row]
+        cell.configure(for: group)
+        return cell
+    }
+}
+
+extension AllGroupsViewController: UITableViewDelegate{
+    
 }
