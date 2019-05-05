@@ -44,6 +44,9 @@ class AllGroupsViewController: UIViewController {
         groupsTableView = UITableView()
         groupsTableView.translatesAutoresizingMaskIntoConstraints = false
         groupsTableView.register(GroupTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        groupsTableView.dataSource = self
+        groupsTableView.delegate = self
+        view.addSubview(groupsTableView)
         
         
         setupConstraints()
@@ -54,7 +57,12 @@ class AllGroupsViewController: UIViewController {
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searchBar.leftAnchor.constraint(equalTo: view.leftAnchor),
-            searchBar.rightAnchor.constraint(equalTo: view.rightAnchor)
+            searchBar.rightAnchor.constraint(equalTo: view.rightAnchor),
+            
+            groupsTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            groupsTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            groupsTableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            groupsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             ])
         
     }
@@ -114,4 +122,21 @@ extension AllGroupsViewController: UISearchBarDelegate{
             }
         }
     }
+}
+
+extension AllGroupsViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return displayedGroups.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! GroupTableViewCell
+        let group = displayedGroups[indexPath.row]
+        cell.configure(for: group)
+        return cell
+    }
+}
+
+extension AllGroupsViewController: UITableViewDelegate{
+    
 }
