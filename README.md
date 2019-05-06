@@ -5,12 +5,12 @@ Synthesize is an app designed to provide Cornell students an easy way to collabo
 
 Link to backend repo: https://github.com/mg2239/synthesize-backend
 
-##Requirements:
+## Requirements:
 iOS: 
 	- AutoLayout: Each screen meets this by using NSLayoutConstraint.
 	- Collection View or Table View: The home screen features two collection views, the browse screen has a table view, each class screen has a table view, and each message screen has a collection view.
 	- Navigation: The app uses a UITabBarController and a UINavigationController.
 	- Integration with an API: The app fetches classes, assignments, and messages from the API written by the backend team.
 
-##Screenshots:
+## Screenshots:
 <img src="https://github.com/eli-zhang/synthesize/blob/master/readmeimages/class_roster.PNG" width="300" height="534"><img src="https://github.com/eli-zhang/synthesize/blob/master/readmeimages/google_signin.PNG" width="300" height="534"><img src="https://github.com/eli-zhang/synthesize/blob/master/readmeimages/homeview.PNG" width="300" height="534"><img src="https://github.com/eli-zhang/synthesize/blob/master/readmeimages/group_chat.PNG" width="300" height="534"><img src="https://github.com/eli-zhang/synthesize/blob/master/readmeimages/incognito.PNG" width="300" height="534"><img src="https://github.com/eli-zhang/synthesize/blob/master/readmeimages/browse.jpg" width="300" height="534"><img src="https://github.com/eli-zhang/synthesize/blob/master/readmeimages/class.jpg" width="300" height="534">
