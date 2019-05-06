@@ -13,13 +13,14 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
 
     var appNameLabel: UILabel!
     var signInButton: GIDSignInButton!
-    let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = mainColor
+        view.backgroundColor = Colors.mainColor
         GIDSignIn.sharedInstance().uiDelegate = self
+        
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(dismissIfSignedIn), userInfo: nil, repeats: true)
         
         setupViews()
         setupConstraints()
@@ -39,7 +40,18 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         signInButton.style = .wide
         signInButton.colorScheme = .light
         view.addSubview(signInButton)
+        
     }
+    
+    @objc func dismissIfSignedIn() {
+        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
+            DispatchQueue.main.async {
+                GIDSignIn.sharedInstance()?.signInSilently()
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
     
     func setupConstraints() {
         
