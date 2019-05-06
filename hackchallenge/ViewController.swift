@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var recentClassesCollectionView: UICollectionView!
     var reuse: String = "GroupReuse"
     var reuseClass: String = "ClassReuse"
-    var recentAssignments: [Assignment]!
+    var recentAssignments: [BasicAssignment]!
     var recentClassesLabel: UILabel!
     var recentClasses: [Class]!
     var tabController: UITabBarController!
@@ -105,12 +105,15 @@ class ViewController: UIViewController {
     }
     
     func getRecentClassesAndGroups() {
+        print("getting recent classes")
+        print(UserDefaults.standard.integer(forKey: "id"))
         NetworkManager.getUser(id: UserDefaults.standard.integer(forKey: "id"), completion: { user in
-            print(user.name)
-            print(user.classes)
-            print(user.id)
             self.recentClasses = user.classes
             self.recentAssignments = user.assignments
+            DispatchQueue.main.async {
+                self.recentGroupsCollectionView.reloadData()
+                self.recentClassesCollectionView.reloadData()
+            }
         })
     }
     
@@ -136,38 +139,38 @@ class ViewController: UIViewController {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            recentLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            recentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            recentLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            recentLabel.heightAnchor.constraint(equalToConstant: 50)
-            ])
-        
-        NSLayoutConstraint.activate([
-            recentGroupsCollectionView.topAnchor.constraint(equalTo: recentLabel.bottomAnchor, constant: 25),
-            recentGroupsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            recentGroupsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            //            recentGroupsCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor)
-            recentGroupsCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: 50)
-            ])
-        
-        NSLayoutConstraint.activate([
-            recentClassesLabel.topAnchor.constraint(equalTo: recentGroupsCollectionView.bottomAnchor, constant: 25),
-            recentClassesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            recentClassesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            recentClassesLabel.heightAnchor.constraint(equalToConstant: 50)
-            ])
-        
-        NSLayoutConstraint.activate([
-            recentClassesCollectionView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
-            recentClassesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            recentClassesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            recentClassesCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ])
-        NSLayoutConstraint.activate([
             signOutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
             signOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             signOutButton.heightAnchor.constraint(equalToConstant: 50),
             signOutButton.widthAnchor.constraint(equalToConstant: 250)
+            ])
+        NSLayoutConstraint.activate([
+            recentLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            recentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            recentLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recentLabel.heightAnchor.constraint(equalToConstant: 35)
+            ])
+        
+        NSLayoutConstraint.activate([
+            recentGroupsCollectionView.topAnchor.constraint(equalTo: recentLabel.bottomAnchor, constant: 15),
+            recentGroupsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            recentGroupsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            //            recentGroupsCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor)
+            recentGroupsCollectionView.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: 10)
+            ])
+        
+        NSLayoutConstraint.activate([
+            recentClassesLabel.topAnchor.constraint(equalTo: recentGroupsCollectionView.bottomAnchor, constant: 15),
+            recentClassesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            recentClassesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recentClassesLabel.heightAnchor.constraint(equalToConstant: 35)
+            ])
+        
+        NSLayoutConstraint.activate([
+            recentClassesCollectionView.topAnchor.constraint(equalTo: recentClassesLabel.bottomAnchor, constant: 15),
+            recentClassesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            recentClassesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            recentClassesCollectionView.bottomAnchor.constraint(equalTo: signOutButton.topAnchor, constant: -20)
             ])
     }
     
@@ -223,10 +226,8 @@ extension ViewController: UICollectionViewDelegate {
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var length = collectionView.frame.height - 60
-        if collectionView == self.recentGroupsCollectionView {
-            length = length / 2
-        }
-        return CGSize(width: length, height: length)
+        let width = collectionView.frame.width / 3 - 20
+        let height = recentGroupsCollectionView.frame.height / 2 - 5
+        return CGSize(width: width, height: height)
     }
 }

@@ -40,7 +40,7 @@ class NetworkManager {
     }
     
     static func getUser(id: Int, completion: @escaping (User) -> Void) {
-        let endpoint = url + "/api/user/\(id)"
+        let endpoint = url + "/api/user/\(id)/"
         Alamofire.request(endpoint, method: .get).validate().responseData { response in
             switch response.result {
             case let .success(data):

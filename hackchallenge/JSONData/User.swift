@@ -21,5 +21,5 @@ struct User: Codable {
     let username: String
     let name: String
     let classes: [Class]
-    let assignments: [Assignment]
+    let assignments: [BasicAssignment]
 }
