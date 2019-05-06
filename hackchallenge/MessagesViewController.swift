@@ -64,6 +64,11 @@ class MessagesViewController: UIViewController, AssignmentInfo {
         
         setupConstraints()
         setupInputComponents()
+        //scrollToBottom()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            self.scrollToBottom()
+        })
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: ViewController.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: ViewController.keyboardWillHideNotification, object: nil)
@@ -117,6 +122,9 @@ class MessagesViewController: UIViewController, AssignmentInfo {
             NetworkManager.addMessageToAssignment(classId: assignmentInfo.class_id, assignmentId: assignmentInfo.id, message: inputTextField.text ?? "", username: UserDefaults.standard.string(forKey: "username") ?? "", user: UserDefaults.standard.string(forKey: "name") ?? "", time: getTime(),
                                                   completion: { message in
                                                     self.updateMessages()
+            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                self.scrollToBottom()
             })
             inputTextField.text = ""
         }
@@ -178,6 +186,13 @@ class MessagesViewController: UIViewController, AssignmentInfo {
     
     func addAssignmentInfo(assignment: Assignment) {
         self.assignmentInfo = assignment
+    }
+    
+    func scrollToBottom() {
+        let lastsectionindex = (messagesCollectionView.numberOfSections) - 1
+        let lastitemindex = (messagesCollectionView.numberOfItems(inSection: lastsectionindex)) - 1
+        let indexPath = NSIndexPath(item: lastitemindex, section: lastsectionindex)
+        messagesCollectionView.scrollToItem(at: indexPath as IndexPath, at: UICollectionView.ScrollPosition.bottom, animated: true)
     }
 }
 
