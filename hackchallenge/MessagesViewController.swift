@@ -113,11 +113,13 @@ class MessagesViewController: UIViewController, AssignmentInfo {
     }
     
     @objc func sendButtonTapped(){
-        NetworkManager.addMessageToAssignment(classId: assignmentInfo.class_id, assignmentId: assignmentInfo.id, message: inputTextField.text ?? "", username: UserDefaults.standard.string(forKey: "username") ?? "", user: UserDefaults.standard.string(forKey: "name") ?? "", time: getTime(),
-                completion: { message in
-                    self.updateMessages()
-                })
-        inputTextField.text = ""
+        if inputTextField.text != "" {
+            NetworkManager.addMessageToAssignment(classId: assignmentInfo.class_id, assignmentId: assignmentInfo.id, message: inputTextField.text ?? "", username: UserDefaults.standard.string(forKey: "username") ?? "", user: UserDefaults.standard.string(forKey: "name") ?? "", time: getTime(),
+                                                  completion: { message in
+                                                    self.updateMessages()
+            })
+            inputTextField.text = ""
+        }
     }
     
     func getTime() -> String {
