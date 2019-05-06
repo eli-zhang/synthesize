@@ -84,7 +84,7 @@ class ClassViewController: UIViewController {
     
     @objc func refreshTable() {
         DispatchQueue.main.async {
-            self.groupsTableView.reloadData()
+            self.updateGroups()
             self.refreshControl.endRefreshing()
         }
     }
@@ -99,7 +99,10 @@ class ClassViewController: UIViewController {
         alert.addTextField()
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alert] _ in
             let answer = alert.textFields![0]
-            NetworkManager.createAssignment(classId: self.classForView.id, name: answer.text ?? "New Assignment", completion: { assignment in // Do anything with the assignment here
+            NetworkManager.createAssignment(classId: self.classForView.id, name: answer.text ?? "New Assignment", completion: { assignment in
+                DispatchQueue.main.async {
+                    self.refreshTable()
+                }
             })
         }
         alert.addAction(submitAction)
@@ -131,7 +134,7 @@ extension ClassViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return 80
     }
 }
 

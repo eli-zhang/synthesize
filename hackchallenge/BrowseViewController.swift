@@ -83,7 +83,7 @@ class BrowseViewController: UIViewController {
     
     @objc func refreshTable() {
         DispatchQueue.main.async {
-            self.classTableView.reloadData()
+            self.getCourses()
             self.refreshControl.endRefreshing()
         }
     }
