@@ -18,7 +18,6 @@ class MessageCell: UICollectionViewCell {
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.textAlignment = .center
-        nameLabel.textColor = Colors.mainColor
         nameLabel.font = UIFont.systemFont(ofSize: 18, weight: .light)
         nameLabel.alpha = 0.0
         
@@ -26,11 +25,9 @@ class MessageCell: UICollectionViewCell {
         messageTextView.translatesAutoresizingMaskIntoConstraints = false
         messageTextView.font = UIFont.systemFont(ofSize: 18)
         messageTextView.isEditable = false
-        messageTextView.textColor = .black
         messageTextView.backgroundColor = .clear
         
         messageBubbleView = UIView()
-        messageBubbleView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         messageBubbleView.layer.cornerRadius = 15
         messageBubbleView.layer.masksToBounds = true
         contentView.addSubview(messageBubbleView)
@@ -49,6 +46,15 @@ class MessageCell: UICollectionViewCell {
     func configure(for message: Message) {
         messageTextView.text = message.message
         nameLabel.text = "user: \(message.name)"
+        if message.username == UserDefaults.standard.string(forKey: "username") {
+            nameLabel.textColor = .white
+            messageBubbleView.backgroundColor = Colors.mainColor
+            messageTextView.textColor = .white
+        } else {
+            nameLabel.textColor = Colors.mainColor
+            messageBubbleView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+            messageTextView.textColor = .black
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -19,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Override point for customization after application launch.
         UINavigationBar.appearance().tintColor = .white
         
-        GIDSignIn.sharedInstance().signOut()
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         //window?.rootViewController = UINavigationController(rootViewController: ViewController())
         window?.rootViewController = CustomTabBarController()
