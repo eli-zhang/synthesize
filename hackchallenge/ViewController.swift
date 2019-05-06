@@ -105,8 +105,6 @@ class ViewController: UIViewController {
     }
     
     func getRecentClassesAndGroups() {
-        print("getting recent classes")
-        print(UserDefaults.standard.integer(forKey: "id"))
         NetworkManager.getUser(id: UserDefaults.standard.integer(forKey: "id"), completion: { user in
             self.recentClasses = user.classes
             self.recentAssignments = user.assignments
@@ -209,18 +207,18 @@ extension ViewController: UICollectionViewDataSource {
 
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if collectionView == self.recentGroupsCollectionView {
-//            let cell = initialRecentGroups[indexPath.item]
-//            let groupViewController = GroupViewController()
-//            groupViewController.title = cell.relatedClass.getTitle() + " - " + cell.name
-//            navigationController?.pushViewController(groupViewController, animated: true)
-//        }
-//        else {
-//            let cell = initialRecentClasses[indexPath.item]
-//            let classViewController = ClassViewController(relatedClass: cell)
-//            classViewController.title = "Groups - " + cell.getTitle()
-//            navigationController?.pushViewController(classViewController, animated: true)
-//        }
+        if collectionView == self.recentGroupsCollectionView {
+            let assignment = recentAssignments[indexPath.item]
+            let messageViewController = MessagesViewController()
+            messageViewController.addAssignmentInfo(assignment: assignment)
+            navigationController?.pushViewController(messageViewController, animated: true)
+        }
+        else {
+            let cell = recentClasses[indexPath.item]
+            let classViewController = ClassViewController(relatedClass: cell)
+            classViewController.title = "Groups - " + cell.getTitle()
+            navigationController?.pushViewController(classViewController, animated: true)
+        }
     }
 }
 

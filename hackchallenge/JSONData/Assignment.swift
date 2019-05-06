@@ -68,4 +68,8 @@ struct Assignment: Codable {
     let name: String
     let class_id: Int
     let messages: [Message]
+    
+    func toBasic() -> BasicAssignment {
+        return BasicAssignment(id: id, name: name, class_id: class_id)
+    }
 }

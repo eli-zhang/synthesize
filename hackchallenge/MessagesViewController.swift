@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AssignmentInfo {
-    func addAssignmentInfo(assignment: Assignment)
+    func addAssignmentInfo(assignment: BasicAssignment)
 }
 
 class MessagesViewController: UIViewController, AssignmentInfo {
@@ -20,12 +20,10 @@ class MessagesViewController: UIViewController, AssignmentInfo {
     let reuseIdentifier = "reuse"
     
     var messages: [Message]!
-    
     var messageInputContainerView: UIView!
     var inputTextField: UITextField!
     var sendButton: UIButton!
-    
-    var assignmentInfo: Assignment!
+    var assignmentInfo: BasicAssignment!
     var timer: Timer!
     weak var delegate: ClassViewController?
     
@@ -33,8 +31,8 @@ class MessagesViewController: UIViewController, AssignmentInfo {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         
-        title = "Messages - \(assignmentInfo.name)"
-        
+        title = assignmentInfo.name
+        messages = []
         tabBarController?.tabBar.isHidden = true
         
         let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
@@ -43,6 +41,22 @@ class MessagesViewController: UIViewController, AssignmentInfo {
         self.navigationController!.navigationBar.titleTextAttributes =
             [NSAttributedString.Key.foregroundColor: UIColor.white,
              NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
+        
+        let incognitoView = UIView.init(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
+        let incognito = UIButton.init(type: .system)
+        incognito.backgroundColor = .clear
+        incognito.frame = incognitoView.frame
+        incognito.setImage(UIImage(named: "spy"), for: .normal)
+        incognito.autoresizesSubviews = true
+        incognito.autoresizingMask = [.flexibleWidth , .flexibleHeight]
+        incognito.addTarget(self, action: #selector(changeIncognito), for: .touchUpInside)
+        incognitoView.addSubview(incognito)
+        
+        let incognitoButton = UIBarButtonItem.init(customView: incognitoView)
+        navigationItem.rightBarButtonItem = incognitoButton
+        if UserDefaults.standard.bool(forKey: "anonymous") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.black.withAlphaComponent(0.45)
+        }
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -117,9 +131,24 @@ class MessagesViewController: UIViewController, AssignmentInfo {
         setupConstraints2()
     }
     
-    @objc func sendButtonTapped(){
+    @objc func changeIncognito() {
+        if UserDefaults.standard.bool(forKey: "anonymous") {
+            UserDefaults.standard.set(false, forKey: "anonymous")
+            self.navigationController?.navigationBar.barTintColor = Colors.mainColor
+        }
+        else {
+            UserDefaults.standard.set(true, forKey: "anonymous")
+            self.navigationController?.navigationBar.barTintColor = UIColor.black.withAlphaComponent(0.45)
+        }
+    }
+    
+    @objc func sendButtonTapped() {
         if inputTextField.text != "" {
-            NetworkManager.addMessageToAssignment(classId: assignmentInfo.class_id, assignmentId: assignmentInfo.id, message: inputTextField.text ?? "", username: UserDefaults.standard.string(forKey: "username") ?? "", user: UserDefaults.standard.string(forKey: "name") ?? "", time: getTime(),
+            var name = UserDefaults.standard.string(forKey: "name")
+            if UserDefaults.standard.bool(forKey: "anonymous") {
+                name = "anon"
+            }
+            NetworkManager.addMessageToAssignment(classId: assignmentInfo.class_id, assignmentId: assignmentInfo.id, message: inputTextField.text ?? "", username: UserDefaults.standard.string(forKey: "username") ?? "", name: name ?? "", time: getTime(),
                                                   completion: { message in
                                                     self.updateMessages()
             })
@@ -168,6 +197,13 @@ class MessagesViewController: UIViewController, AssignmentInfo {
     
     override func viewDidAppear(_ animated: Bool) {
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateMessages), userInfo: nil, repeats: true)
+        if UserDefaults.standard.bool(forKey: "anonymous") {
+            self.navigationController?.navigationBar.barTintColor = UIColor.black.withAlphaComponent(0.45)
+        } else {
+            if UserDefaults.standard.bool(forKey: "anonymous") {
+                self.navigationController?.navigationBar.barTintColor = Colors.mainColor
+            }
+        }
         updateMessages()
     }
     
@@ -177,14 +213,22 @@ class MessagesViewController: UIViewController, AssignmentInfo {
     
     @objc func updateMessages() {
         NetworkManager.getMessagesFromAssignment(classId: assignmentInfo.class_id, assignmentId: assignmentInfo.id, completion: { messages in
+            let messageCount = self.messages.count
             self.messages = messages
-            DispatchQueue.main.async {
-                self.messagesCollectionView.reloadData()
+            let newMessageCount = self.messages.count
+            if newMessageCount > messageCount {
+                DispatchQueue.main.async {
+                    self.messagesCollectionView.reloadData()
+                }
             }
         })
     }
     
     func addAssignmentInfo(assignment: Assignment) {
+        addAssignmentInfo(assignment: assignment.toBasic())
+    }
+    
+    func addAssignmentInfo(assignment: BasicAssignment) {
         self.assignmentInfo = assignment
     }
     
@@ -224,13 +268,14 @@ extension MessagesViewController: UICollectionViewDataSource{
                 cell.nameLabel.alpha = 1.0
                 cell.messageTextView.alpha = 0.0
             }
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            UIView.animate(withDuration: 0.4) {
-                cell.nameLabel.alpha = 0.0
-                cell.messageTextView.alpha = 1.0
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                UIView.animate(withDuration: 0.4) {
+                    cell.nameLabel.alpha = 0.0
+                    cell.messageTextView.alpha = 1.0
+                }
             }
         }
+        messagesCollectionView.deselectItem(at: indexPath, animated: false)
     }
 }
 
