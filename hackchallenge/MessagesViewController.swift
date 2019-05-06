@@ -196,8 +196,24 @@ extension MessagesViewController: UICollectionViewDataSource{
             cell.messageTextView.frame = CGRect(x: 8+20, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
             cell.messageBubbleView.frame = CGRect(x: 0+20 , y: 0, width: estimatedFrame.width  + 16 + 8, height: estimatedFrame.height + 20)
         }
-        
+        cell.setNeedsUpdateConstraints()
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! MessageCell
+        if cell.nameLabel.alpha == 0.0 {
+            UIView.animate(withDuration: 0.4) {
+                cell.nameLabel.alpha = 1.0
+                cell.messageTextView.alpha = 0.0
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            UIView.animate(withDuration: 0.4) {
+                cell.nameLabel.alpha = 0.0
+                cell.messageTextView.alpha = 1.0
+            }
+        }
     }
 }
 

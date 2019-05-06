@@ -39,8 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             print(error.localizedDescription)
             return
         } else {
-            UserDefaults.standard.set(getUsername(email: user.profile.email), forKey: "username")
-            UserDefaults.standard.set(user.profile.givenName, forKey: "name")
+            let username = getUsername(email: user.profile.email)
+            let name = user.profile.givenName
+            UserDefaults.standard.set(username, forKey: "username")
+            UserDefaults.standard.set(name, forKey: "name")
+            NetworkManager.createUser(username: username, name: name ?? "", completion: { user in
+                let id = user.id
+                UserDefaults.standard.set(id, forKey: "id")
+            })
         }
     }
     
@@ -49,7 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             print(error.localizedDescription)
             return
         }
-        System.currentUser = nil
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

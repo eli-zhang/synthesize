@@ -70,11 +70,10 @@ class RecentGroupCollectionViewCell: UICollectionViewCell {
             ])
     }
     
-    func configure(for group: Group) {
-        let image = group.relatedClass.getImageName()
+    func configure(for assignment: Assignment) {
+        let image = assignment.getImageName()
         classImageView.image = UIImage(named: image)
-        classNameLabel.text = group.relatedClass.subject + " " + String(group.relatedClass.number)
-        groupNameLabel.text = group.name
+        groupNameLabel.text = assignment.name
     }
     
     func configure(for course: Class) {

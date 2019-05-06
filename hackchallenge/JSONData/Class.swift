@@ -8,9 +8,13 @@
 
 import Foundation
 
-struct ClassData: Codable {
+struct MultiClassData: Codable {
     let success: Bool
     let data: [Class]
+}
+struct ClassData: Codable {
+    let success: Bool
+    let data: Class
 }
 
 struct Class: Codable {

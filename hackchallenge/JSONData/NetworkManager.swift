@@ -12,7 +12,7 @@ import Alamofire
 let url = "http://35.237.82.135"
 
 class NetworkManager {
-    static func createUser(username: String, name: String, completion: @escaping () -> Void) {
+    static func createUser(username: String, name: String, completion: @escaping (User) -> Void) {
         let endpoint = url + "/api/user/"
         let parameters: Parameters = ["username": username,
                                       "name": name]
@@ -22,7 +22,7 @@ class NetworkManager {
                 let decoder = JSONDecoder()
                 if let userdata = try? decoder.decode(UserData.self, from: data) {
                     if userdata.success {
-                        completion()
+                        completion(userdata.data)
                     }
                 }
             case let .failure(error):
@@ -143,6 +143,31 @@ class NetworkManager {
     
     static func getClasses(completion: @escaping ([Class]) -> Void) {
         let endpoint = url + "/api/classes/"
+        Alamofire.request(endpoint, method: .get).validate().responseData { response in
+            switch response.result {
+            case let .success(data):
+                let decoder = JSONDecoder()
+                if let multiClassData = try? decoder.decode(MultiClassData.self, from: data) {
+                    if multiClassData.success {
+                        completion(multiClassData.data)
+                    }
+                }
+            case let .failure(error):
+                if let data = response.data {
+                    let decoder = JSONDecoder()
+                    if let errorMessage = try? decoder.decode(ErrorMessage.self, from: data) {
+                        print(errorMessage.error)
+                    }
+                }
+                else {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    static func getClass(classId: Int, completion: @escaping (Class) -> Void) {
+        let endpoint = url + "/api/class/\(classId)/"
         Alamofire.request(endpoint, method: .get).validate().responseData { response in
             switch response.result {
             case let .success(data):

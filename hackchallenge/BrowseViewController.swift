@@ -85,7 +85,10 @@ class BrowseViewController: UIViewController {
     
     @objc func refreshTable() {
         DispatchQueue.main.async {
-            self.getCourses()
+            NetworkManager.getClasses(completion: { classes in
+                self.originalCourses = classes
+                self.displayedCourses = classes
+                DispatchQueue.main.async {self.classTableView.reloadData()}})
             self.refreshControl.endRefreshing()
         }
     }
@@ -112,13 +115,11 @@ class BrowseViewController: UIViewController {
 extension BrowseViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return displayedCourses.count
-        //return originalCourses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ClassTableViewCell
         let course = displayedCourses[indexPath.row]
-        //let course = originalCourses[indexPath.row]
         cell.configure(for: course)
         return cell
     }

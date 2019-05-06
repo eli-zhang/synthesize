@@ -25,6 +25,16 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         setupConstraints()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
+            DispatchQueue.main.async {
+                GIDSignIn.sharedInstance()?.signInSilently()
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
     func setupViews() {
         appNameLabel = UILabel()
         appNameLabel.translatesAutoresizingMaskIntoConstraints = false

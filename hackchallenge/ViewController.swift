@@ -17,10 +17,11 @@ class ViewController: UIViewController {
     var recentClassesCollectionView: UICollectionView!
     var reuse: String = "GroupReuse"
     var reuseClass: String = "ClassReuse"
-    var initialRecentGroups: [Group]!
+    var recentAssignments: [Assignment]!
     var recentClassesLabel: UILabel!
-    var initialRecentClasses: [Class]!
+    var recentClasses: [Class]!
     var tabController: UITabBarController!
+    var signOutButton: UIButton!
     let browseViewController = BrowseViewController()
     
     
@@ -77,40 +78,53 @@ class ViewController: UIViewController {
         recentClassesCollectionView.showsHorizontalScrollIndicator = false
         view.addSubview(recentClassesCollectionView)
         
+        signOutButton = UIButton()
+        signOutButton.translatesAutoresizingMaskIntoConstraints = false
+        signOutButton.setTitle("Sign out", for: .normal)
+        signOutButton.setTitleColor(.white, for: .normal)
+        signOutButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        signOutButton.backgroundColor = Colors.mainColor
+        signOutButton.layer.cornerRadius = 25
+        signOutButton.layer.shadowColor = Colors.shadowColor
+        signOutButton.layer.shadowOffset = CGSize(width: 5, height: 7)
+        signOutButton.layer.shadowOpacity = 0.8
+        signOutButton.layer.masksToBounds = false
+        signOutButton.addTarget(self, action: #selector(signOut), for: .touchUpInside)
+        view.addSubview(signOutButton)
         
-        
-        let cs3410 = Class(id: 0, subject: "CS", number: 3410, name: "Computer System Organization and Programming")
-        let cs2300 = Class(id: 1, subject: "CS", number: 2300, name: "Intermediate Web Design and Programming")
-        let orie3120 = Class(id: 2, subject: "ORIE", number: 3120, name: "Practical Tools for OR and Machine Learning")
-        let math2930 = Class(id: 3, subject: "MATH", number: 2930, name: "Differential Equations")
-        let music1312 = Class(id: 4, subject: "MUSIC", number: 1312, name: "History of Rock Music")
-        let hadm1111 = Class(id: 5, subject: "HADM", number: 1111, name: "Hotel Class")
-        let ilr2100 = Class(id: 6, subject: "ILR", number: 2100, name: "Labor Relations")
-        let bio1000 = Class(id: 7, subject: "BIO", number: 1111, name: "Bio 1")
-        let group1 = Group(relatedClass: cs3410, name: "Project 1")
-        let group2 = Group(relatedClass: cs2300, name: "Project 4")
-        let group3 = Group(relatedClass: orie3120, name: "Prelim 2")
-        let group4 = Group(relatedClass: orie3120, name: "Problem Set 4")
-        let group5 = Group(relatedClass: math2930, name: "Problem Set 8")
-        let group6 = Group(relatedClass: music1312, name: "Final Essay")
-        let group7 = Group(relatedClass: cs3410, name: "Project 5")
-        let group8 = Group(relatedClass: cs3410, name: "Prelim 2")
-        let group9 = Group(relatedClass: cs2300, name: "Lab 10")
-        let group10 = Group(relatedClass: hadm1111, name: "Assignment 1")
-        let group11 = Group(relatedClass: ilr2100, name: "Prelim 1")
-        let group12 = Group(relatedClass: bio1000, name: "Prelim1")
-        
-        initialRecentGroups = [group1, group2, group3, group4, group5, group6, group7, group8, group9, group10, group11, group12]
-        initialRecentClasses = [cs2300, cs3410, orie3120, math2930, ilr2100]
-        
+        recentAssignments = []
+        recentClasses = []
         setupConstraints()
+        getRecentClassesAndGroups()
         checkSignIn()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        getRecentClassesAndGroups()
+    }
+    
+    func getRecentClassesAndGroups() {
+        NetworkManager.getUser(id: UserDefaults.standard.integer(forKey: "id"), completion: { user in
+            print(user.name)
+            print(user.classes)
+            print(user.id)
+            self.recentClasses = user.classes
+            self.recentAssignments = user.assignments
+        })
+    }
+    
+    @objc func signOut() {
+        GIDSignIn.sharedInstance().signOut()
+        let signInController = SignInViewController()
+        present(signInController, animated: true, completion: nil)
     }
     
     func checkSignIn() {
         if GIDSignIn.sharedInstance().hasAuthInKeychain() {
             DispatchQueue.main.async {
                 GIDSignIn.sharedInstance()?.signInSilently()
+                self.getRecentClassesAndGroups()
             }
         }
         else {
@@ -149,6 +163,12 @@ class ViewController: UIViewController {
             recentClassesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             recentClassesCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             ])
+        NSLayoutConstraint.activate([
+            signOutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            signOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            signOutButton.heightAnchor.constraint(equalToConstant: 50),
+            signOutButton.widthAnchor.constraint(equalToConstant: 250)
+            ])
     }
     
     @objc func presentBrowseViewController() {
@@ -161,23 +181,23 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.recentGroupsCollectionView {
-            return initialRecentGroups.count
+            return recentAssignments.count
         }
         else {
-            return initialRecentClasses.count
+            return recentClasses.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.recentGroupsCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuse, for: indexPath) as! RecentGroupCollectionViewCell
-            let group = initialRecentGroups[indexPath.item]
-            cell.configure(for: group)
+            let assignment = recentAssignments[indexPath.item]
+            cell.configure(for: assignment)
             return cell
         }
         else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseClass, for: indexPath) as! RecentGroupCollectionViewCell
-            let course = initialRecentClasses[indexPath.item]
+            let course = recentClasses[indexPath.item]
             cell.configure(for: course)
             return cell
         }
