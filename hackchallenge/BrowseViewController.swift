@@ -24,6 +24,7 @@ class BrowseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
         title = "Browse"
         view.backgroundColor = .white
