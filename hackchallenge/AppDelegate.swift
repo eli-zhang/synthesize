@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     var window: UIWindow?
     
@@ -17,11 +18,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UINavigationBar.appearance().tintColor = .white
+        
+        GIDSignIn.sharedInstance()?.clientID = "545974794204-jj497v4ulthas57d37kumdhilmvdeksj.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().delegate = self
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         //window?.rootViewController = UINavigationController(rootViewController: ViewController())
         window?.rootViewController = CustomTabBarController()
         window?.makeKeyAndVisible()
+        
+        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
+            DispatchQueue.main.async {
+                GIDSignIn.sharedInstance()?.signInSilently()
+            }
+        }
+        else {
+            window?.rootViewController = SignInViewController()
+        }
+        
         return true
+    }
+    
+    func getUsername(email: String) -> String {
+        let components = email.components(separatedBy: "@")
+        return components[0]
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        System.currentUser = getUsername(email: user.profile.email)
+        window?.rootViewController = UINavigationController(rootViewController: CustomTabBarController())
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        System.currentUser = nil
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url as URL?,
+                                                 sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+        )
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

@@ -8,5 +8,6 @@ target 'hackchallenge' do
   # Pods for hackchallenge
   pod 'Alamofire'
   pod 'NVActivityIndicatorView'
+  pod 'GoogleSignIn'
 
 end

@@ -1,22 +1,42 @@
 PODS:
   - Alamofire (4.8.2)
+  - GoogleSignIn (4.4.0):
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.2.0):
+    - GoogleToolboxForMac/Defines (= 2.2.0)
+  - GoogleToolboxForMac/Defines (2.2.0)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.2.0)":
+    - GoogleToolboxForMac/DebugUtils (= 2.2.0)
+    - GoogleToolboxForMac/Defines (= 2.2.0)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.0)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.2.0)"
+  - GTMSessionFetcher/Core (1.2.1)
   - NVActivityIndicatorView (4.7.0):
     - NVActivityIndicatorView/Presenter (= 4.7.0)
   - NVActivityIndicatorView/Presenter (4.7.0)
 
 DEPENDENCIES:
   - Alamofire
+  - GoogleSignIn
   - NVActivityIndicatorView
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - GoogleSignIn
+    - GoogleToolboxForMac
+    - GTMSessionFetcher
     - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
+  GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
+  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
 
-PODFILE CHECKSUM: d2e83aa6477c3124f6d851a3952b49684b8166a4
+PODFILE CHECKSUM: 7f0b764649eea1bf84c9bb4b43f1157462a8d4ff
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.6.1
