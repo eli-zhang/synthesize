@@ -58,6 +58,11 @@ class ClassViewController: UIViewController {
         setupConstraints()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateGroups()
+    }
+    
     func setupConstraints() {
         NSLayoutConstraint.activate([
             groupsTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
