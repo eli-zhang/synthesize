@@ -101,6 +101,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        tabBarController?.tabBar.isHidden = false
         getRecentClassesAndGroups()
     }
     
