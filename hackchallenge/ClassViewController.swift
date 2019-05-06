@@ -109,13 +109,27 @@ class ClassViewController: UIViewController {
         alert.addTextField()
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alert] _ in
             let answer = alert.textFields![0]
-            NetworkManager.createAssignment(classId: self.classForView.id, name: answer.text ?? "New Assignment", completion: { assignment in
-                DispatchQueue.main.async {
-                    self.refreshTable()
-                }
-            })
+            if answer.text?.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                NetworkManager.createAssignment(classId: self.classForView.id, name: answer.text ?? "New Assignment", completion: { assignment in
+                    DispatchQueue.main.async {
+                        self.refreshTable()
+                    }
+                })
+            }
+            else {
+                let emptyNameAlert = UIAlertController(title: "Assignment name cannot be empty.", message: nil, preferredStyle: .alert)
+                let doneAction = UIAlertAction(title: "OK", style: .default, handler: { (action:UIAlertAction!) in
+                    
+                })
+                emptyNameAlert.addAction(doneAction)
+                self.present(emptyNameAlert, animated: true)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+            
         }
         alert.addAction(submitAction)
+        alert.addAction(cancelAction)
         present(alert, animated: true)
     }
 }
