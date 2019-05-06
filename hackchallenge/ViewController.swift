@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class ViewController: UIViewController {
     
@@ -103,6 +104,19 @@ class ViewController: UIViewController {
         initialRecentClasses = [cs2300, cs3410, orie3120, math2930, ilr2100]
         
         setupConstraints()
+        checkSignIn()
+    }
+    
+    func checkSignIn() {
+        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
+            DispatchQueue.main.async {
+                GIDSignIn.sharedInstance()?.signInSilently()
+            }
+        }
+        else {
+            let signInController = SignInViewController()
+            present(signInController, animated: true, completion: nil)
+        }
     }
     
     

@@ -19,23 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Override point for customization after application launch.
         UINavigationBar.appearance().tintColor = .white
         
-        GIDSignIn.sharedInstance()?.clientID = "545974794204-jj497v4ulthas57d37kumdhilmvdeksj.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance().delegate = self
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         //window?.rootViewController = UINavigationController(rootViewController: ViewController())
         window?.rootViewController = CustomTabBarController()
         window?.makeKeyAndVisible()
         
-        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
-            DispatchQueue.main.async {
-                GIDSignIn.sharedInstance()?.signInSilently()
-            }
-        }
-        else {
-            window?.rootViewController = SignInViewController()
-        }
-        
+        GIDSignIn.sharedInstance()?.clientID = "545974794204-jj497v4ulthas57d37kumdhilmvdeksj.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().delegate = self
         return true
     }
     
@@ -48,9 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         if let error = error {
             print(error.localizedDescription)
             return
+        } else {
+            UserDefaults.standard.set(getUsername(email: user.profile.email), forKey: "username")
+            UserDefaults.standard.set(user.profile.givenName, forKey: "name")
         }
-        System.currentUser = getUsername(email: user.profile.email)
-        window?.rootViewController = UINavigationController(rootViewController: CustomTabBarController())
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {

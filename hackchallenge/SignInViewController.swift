@@ -10,7 +10,7 @@ import UIKit
 import GoogleSignIn
 
 class SignInViewController: UIViewController, GIDSignInUIDelegate {
-    
+
     var appNameLabel: UILabel!
     var signInButton: GIDSignInButton!
     let mainColor: UIColor = UIColor(red: 193/255, green: 94/255, blue: 178/255, alpha: 1.0)
@@ -23,7 +23,6 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
         
         setupViews()
         setupConstraints()
-        
     }
     
     func setupViews() {
@@ -50,7 +49,7 @@ class SignInViewController: UIViewController, GIDSignInUIDelegate {
             appNameLabel.bottomAnchor.constraint(equalTo: view.centerYAnchor),
             appNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             ])
-        
+
         NSLayoutConstraint.activate([
             signInButton.topAnchor.constraint(equalTo: appNameLabel.bottomAnchor, constant: 20),
             signInButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
